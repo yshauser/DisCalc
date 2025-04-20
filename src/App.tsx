@@ -66,64 +66,21 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="app">
-      <Header />
-      
-      <main className="main">
-        <div className="calculator-container">
-          <DiscountTypeSelector
-            selectedType={discountType}
-            fixedDiscount={fixedDiscount}
-            buyAmount={buyAmount}
-            getAmount={getAmount}
-            onTypeChange={handleDiscountTypeChange}
-            onFixedDiscountChange={handleFixedDiscountChange}
-            onBuyAmountChange={handleBuyAmountChange}
-            onGetAmountChange={handleGetAmountChange}
-          />
-          
-          {/* Render the appropriate discount component based on selected type */}
-          {discountType === DiscountType.FIXED_PERCENTAGE && (
-            <FixedPercentageDiscount 
-              rows={rows}
-              fixedDiscount={fixedDiscount}
-              setRows={setRows}
-              setTotals={setTotals}
-            />
-          )}
-          
-          {discountType === DiscountType.VARIABLE_PERCENTAGE && (
-            <VariablePercentageDiscount 
-              rows={rows}
-              setTotals={setTotals}
-            />
-          )}
-          
-          {discountType === DiscountType.FREE_PRODUCT && (
-            <FreeProductDiscount 
-              rows={rows}
-              buyAmount={buyAmount}
-              getAmount={getAmount}
-              setRows={setRows}
-              setTotals={setTotals}
-            />
-          )}
-          
-          {/* Show either ProductTable or TipCalculator based on discount type */}
-          {discountType === DiscountType.TIP_CALCULATION ? (
-            <TipCalculator 
-              setTotals={setTotals}
-            />
-          ) : (
-            <ProductTable 
-              rows={rows}
-              totals={totals}
-              discountType={discountType}
-              setRows={setRows}
-            />
-          )}
-        </div>
-      </main>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
   );
 };
