@@ -1,2 +1,0 @@
-# DisCalc
-discount calculator
