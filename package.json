@@ -1,6 +1,6 @@
 {
   "name": "discalc",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "homepage": "https://yshauser.github.io/DisCalc",
   "dependencies": {
@@ -23,7 +23,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "eslintConfig": {
     "extends": [

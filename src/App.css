@@ -1,444 +1,433 @@
-/* App.css */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-}
-
-.app {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  direction: rtl;
-}
-
-/* Header Styles */
-.header {
-  background-color: #3b82f6;
-  color: white;
-  padding: 16px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.menu-button {
-  background: none;
-  border: none;
-  color: white;
-  border-radius: 50%;
-  padding: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.menu-button:hover {
-  background-color: #2563eb;
-}
-
-.header-title {
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
-}
-
-.header-title h1 {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-right: 8px;
-}
-
-.spacer {
-  width: 32px;
-}
-
-/* Main Content Styles */
-.main {
-  flex: 1;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow-y: auto;
-}
-
-.calculator-table {
-  background-color: white;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 800px;
-}
-
-/* Discount Type Selector Styles */
-.discount-type-section {
-  background-color: white;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 16px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px;
-}
-
-.discount-type-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.discount-type-label {
-  font-weight: bold;
-  font-size: 1rem;
-  color: #4b5563;
-}
-
-.discount-type-select {
-  padding: 8px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 1rem;
-  background-color: white;
-  min-width: 180px;
-}
-
-.fixed-discount-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-right: 16px;
-}
-
-.fixed-discount-label {
-  font-weight: bold;
-  font-size: 1rem;
-  color: #4b5563;
-}
-
-.fixed-discount-input {
-  width: 120px;
-}
-
-.discount-type-controls {
-  display: flex;
-  align-items: center;
-}
-
-.refresh-button {
-  background-color: transparent;
-  color: #666;
-  border: none;
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  padding: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin-right: 10px;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.refresh-button:hover {
-  background-color: #f0f0f0;
-  color: #333;
-}
-
-/* If your app uses RTL direction, you might want to adjust margins */
-[dir="rtl"] .refresh-button {
-  margin-right: 0;
-  margin-left: 10px;
-}
-
-/* Table Styles */
-.table-header {
-  display: flex;
-  font-weight: bold;
-  padding: 8px 0;
-  border-bottom: 2px solid #e5e7eb;
-  margin-bottom: 16px;
-}
-.table-header-no-border {
-  display: flex;
-  font-weight: bold;
-  padding: 8px 0;
-  margin-bottom: 16px;
-}
-
-.border-t {
-  border-top: 2px dashed #e5e7eb;
-  padding-top: 10px;
-}
-.header-cell {
-  flex: 1;
-  padding: 0 8px;
-}
-
-.table-body {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.table-row {
-  display: flex;
-  align-items: center;
-}
-
-.table-cell {
-  flex: 1;
-  padding: 0 8px;
-}
-
-.action-cell {
-  width: 48px;
-  flex: 0 0 auto;
-  display: flex;
-  justify-content: center;
-}
-
-.input-wrapper {
-  position: relative;
-}
-
-.form-control {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 1rem;
-  text-align: right;
-}
-
-.form-control:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-}
-
-.form-control.readonly {
-  background-color: #f3f4f6;
-  color: #2563eb;
-}
-
-.form-control.bold {
-  font-weight: bold;
-}
-/* removes the spin button (the little arrows)*/
-.form-control[type="number"]::-webkit-inner-spin-button,
-.form-control[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.input-addon {
-  position: absolute;
-  left: 6px;
-  top: 12px;
-  color: #6b7280;
-}
-
-/* Button Styles */
-.remove-button {
-  background-color: #fee2e2;
-  color: #ef4444;
-  border: none;
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.remove-button:hover {
-  background-color: #fecaca;
-}
-
-.remove-button:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-.add-row-container {
-  margin-top: 16px;
-  display: flex;
-  justify-content: center;
-}
-
-.add-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: #dbeafe;
-  color: #3b82f6;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.add-button:hover {
-  background-color: #bfdbfe;
-}
-
-/* Totals Section */
-.totals-section {
-  margin-top: 24px;
-  border-top: 2px solid #e5e7eb;
-  padding-top: 16px;
-}
-
-.totals-section label {
-  flex: 0.35;
-  font-weight: 500;
-  font-size: 0.9rem;
-}
-.totals-header {
-  font-weight: bold;
-  margin-bottom: 4px;
-  color: #4b5563;
-}
-
-.totals-row {
-  font-weight: bold;
-}
-
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .calculator-table {
-    padding: 16px;
+/* Viewport-related CSS */
+@viewport {
+    width: device-width;
+    initial-scale: 1;
   }
   
-  .header-cell {
-    font-size: 0.875rem;
+  /* Base styles (mobile first) */
+  html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  body {
+    font-size: 1rem;
+    line-height: 1.5;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* App container */
+  .app {
+    width: 100%;
+    padding: 10px;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    box-sizing: border-box;
+  }
+  
+  .main {
+    padding: 10px;
+  }
+  
+  .calculator-container {
+    width: calc(100% - 20px);
+    padding: 15px;
+    margin: 0 10px; /* Equal spacing from both sides */
+    box-sizing: border-box;
+  }
+  
+  /* Discount Type Selector */
+  .discount-type-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .discount-type-container {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .discount-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .discount-type-label {
+    font-weight: bold;
+  }
+  
+  .discount-type-select {
+    width: 100%;
+    height: 38px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .refresh-button {
+    background-color: transparent;
+    color: #666;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    min-height: 32px;
+    min-width: 32px;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  
+  .refresh-button:hover {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  /* Fixed discount container */
+  .fixed-discount-container {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .fixed-discount-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .fixed-discount-input {
+    max-width: 100%;
+  }
+  
+  /* Buy-get container */
+  .buy-get-container {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .buy-get-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .buy-get-text {
+    margin: 0 5px;
+    white-space: nowrap;
+  }
+  
+  .buy-amount-input,
+  .get-amount-input {
+    width: 70px;
+  }
+  
+  /* Input styles */
+  .input-wrapper {
+    display: flex;
+    position: relative;
+    height: 38px;
   }
   
   .form-control {
-    /* flex:0.7; */
+    width: 100%;
+    height: 20px; /* Adjusted height */
     padding: 8px;
-    font-size: 0.875rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: content-box;
+  }
+  
+  .form-control.readonly {
+    background-color: #f8f8f8;
+    color: #333;
+  }
+  
+  .form-control.bold {
+    font-weight: bold;
   }
   
   .input-addon {
-    top: 8px;
+    position: absolute;
+    right: 0;
+    padding: 0 10px;
+    /* background-color: #f5f5f5; */
+    /* border-left: 1px solid #ccc; */
+    /* border-radius: 0 4px 4px 0; */
+    height: 36px; /* Adjusted to match form-control total height */
+    display: flex;
+    align-items: center;
+    top: 0;
   }
   
-  .selector-row {
-    flex-direction: column;
-    align-items: flex-start;
+  /* RTL adjustments */
+  [dir="rtl"] .input-addon {
+    right: auto;
+    left: 0;
+    /* border-right: 1px solid #ccc; */
+    border-left: none;
+    border-radius: 4px 0 0 4px;
   }
   
-  .selector-label {
-    margin-bottom: 8px;
-  }
-  
-  .selector-dropdown {
+  /* Calculator table */
+  .calculator-table {
     width: 100%;
+    margin-top: 20px;
   }
   
-  .input-group {
-    flex-direction: column;
-    align-items: flex-start;
+  /* Desktop View - hidden on mobile */
+  .desktop-view {
+    display: none;
   }
   
-  .input-group label {
-    margin-bottom: 8px;
+  /* Mobile View */
+  .mobile-view {
+    display: block;
   }
-}
-
-.tip-calculator {
-  /* width: 100%;
-  padding: 1rem;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  margin-bottom: 1rem;
-*/
-  background-color: white;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 800px;
-}
-
-.calculator-instruction {
-  text-align: center;
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-  font-weight: 500;
-  color: #333;
-}
-
-.tip-calculator-fields {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.calculator-field {
-  display: flex;
-  align-items: center;
-  /* flex-direction: column; */
-  gap: 0.5rem;
-}
-
-.calculator-field label {
-  flex: 0.35;
-  font-weight: 500;
-  font-size: 0.9rem;
-}
-
-@media (min-width: 768px) {
-  .tip-calculator-fields {
-    flex-direction: row;
+  
+  /* Product cards for mobile */
+  .product-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .card-header {
+    display: flex;
     justify-content: space-between;
+    padding: 10px 15px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 8px 8px 0 0;
   }
   
-  .calculator-field {
-    flex: 1;
-    margin: 0 0.5rem;
+  .row-number {
+    font-weight: bold;
   }
-}
-
-
-/* Buy X Get Y Free Discount Styles */
-.buy-get-container {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.buy-get-text {
-  font-weight: 500;
-}
-
-.buy-amount-input,
-.get-amount-input {
-  width: 60px;
-}
-
-.buy-amount-input input,
-.get-amount-input input {
-  text-align: center;
-  width: 100%;
-  padding: 0.3rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
+  
+  .card-body {
+    padding: 15px;
+  }
+  
+  /* Modified to show fields in a row */
+  .form-group {
+    margin-bottom: 10px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  /* Add row button */
+  .add-row-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .add-button {
+    width: 100%;
+    height: 44px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .add-button svg {
+    margin-right: 8px;
+  }
+  
+  [dir="rtl"] .add-button svg {
+    margin-right: 0;
+    margin-left: 8px;
+  }
+  
+  .add-button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Remove row button */
+  .remove-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    min-height: 30px;
+    min-width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .remove-button:hover {
+    background-color: #d32f2f;
+  }
+  
+  .remove-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  /* Totals section */
+  .totals-section {
+    margin-top: 20px;
+    border-top: 2px solid #ccc;
+    padding-top: 15px;
+  }
+  
+  .totals-header {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .totals-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Tablet and desktop styles */
+  @media screen and (min-width: 768px) {
+    .calculator-container {
+      width: 90%;
+      padding: 20px;
+      margin: 0 auto; /* Center the container */
+    }
+    
+    .discount-type-section {
+      flex-direction: row;
+      align-items: flex-end;
+    }
+    
+    .discount-type-container {
+      width: auto;
+      margin-right: 15px;
+      margin-bottom: 0;
+    }
+    
+    .fixed-discount-container {
+      width: auto;
+      margin-top: 0;
+      margin-right: 15px;
+    }
+    
+    [dir="rtl"] .discount-type-container {
+      margin-right: 0;
+      margin-left: 15px;
+    }
+    
+    [dir="rtl"] .fixed-discount-container {
+      margin-right: 0;
+      margin-left: 15px;
+    }
+    
+    .buy-get-container {
+      width: auto;
+      display: flex;
+      align-items: center;
+      margin-top: 0;
+    }
+    
+    /* Switch views */
+    .desktop-view {
+      display: block;
+    }
+    
+    .mobile-view {
+      display: none;
+    }
+  
+    /* For showing row fields horizontally */
+    .card-body {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+  
+    .form-group {
+      flex: 1;
+      min-width: 150px;
+    }
+    
+    /* Table styles for desktop */
+    .table-header {
+      display: flex;
+      background-color: #f8f8f8;
+      border-bottom: 2px solid #ccc;
+      font-weight: bold;
+    }
+    
+    .header-cell {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+    }
+    
+    .table-row {
+      display: flex;
+      border-bottom: 1px solid #eee;
+      padding: 10px 0;
+    }
+    
+    .table-cell {
+      flex: 1;
+      padding: 5px 10px;
+    }
+    
+    .action-cell {
+      width: 40px;
+      flex: 0 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .add-button {
+      width: auto;
+      margin-left: auto;
+    }
+    
+    [dir="rtl"] .add-button {
+      margin-left: 0;
+      margin-right: auto;
+    }
+    
+    .border-t {
+      border-top: 2px solid #888;
+    }
+  }
+  
+  /* Larger desktop styles */
+  @media screen and (min-width: 1024px) {
+    .calculator-container {
+      width: 80%;
+      max-width: 1200px;
+      padding: 30px;
+    }
+  }

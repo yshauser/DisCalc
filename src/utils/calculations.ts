@@ -6,7 +6,7 @@ import { ProductRow, Totals } from '../models/types';
 export const calculateFinalPrice = (price: string, discount: string): string => {
   const priceNum = parseFloat(price);
   const discountNum = parseFloat(discount);
-  console.log ('calculations', {priceNum, discountNum, discount, price});
+  // console.log ('calculations', {priceNum, discountNum, discount, price});
   
   if (!isNaN(priceNum) && !isNaN(discountNum)) {
     return (priceNum * ((100 - discountNum) / 100)).toFixed(2);
