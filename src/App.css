@@ -103,7 +103,7 @@ body {
 }
 
 .discount-type-select {
-  padding: 10px;
+  padding: 8px;
   border: 1px solid #d1d5db;
   border-radius: 8px;
   font-size: 1rem;
@@ -128,6 +128,38 @@ body {
   width: 120px;
 }
 
+.discount-type-controls {
+  display: flex;
+  align-items: center;
+}
+
+.refresh-button {
+  background-color: transparent;
+  color: #666;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.refresh-button:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+/* If your app uses RTL direction, you might want to adjust margins */
+[dir="rtl"] .refresh-button {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
 /* Table Styles */
 .table-header {
   display: flex;
@@ -136,7 +168,17 @@ body {
   border-bottom: 2px solid #e5e7eb;
   margin-bottom: 16px;
 }
+.table-header-no-border {
+  display: flex;
+  font-weight: bold;
+  padding: 8px 0;
+  margin-bottom: 16px;
+}
 
+.border-t {
+  border-top: 2px dashed #e5e7eb;
+  padding-top: 10px;
+}
 .header-cell {
   flex: 1;
   padding: 0 8px;
@@ -261,15 +303,21 @@ body {
   padding-top: 16px;
 }
 
+.totals-section label {
+  flex: 0.35;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
 .totals-header {
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
   color: #4b5563;
 }
 
 .totals-row {
   font-weight: bold;
 }
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -282,6 +330,7 @@ body {
   }
   
   .form-control {
+    /* flex:0.7; */
     padding: 8px;
     font-size: 0.875rem;
   }
@@ -344,11 +393,13 @@ body {
 
 .calculator-field {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  /* flex-direction: column; */
   gap: 0.5rem;
 }
 
 .calculator-field label {
+  flex: 0.35;
   font-weight: 500;
   font-size: 0.9rem;
 }

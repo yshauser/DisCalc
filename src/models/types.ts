@@ -5,6 +5,7 @@ export interface ProductRow {
     price: string;
     discount: string;
     finalPrice: string;
+    isGroupStart?: boolean;
   }
   
   export interface Totals {
@@ -17,5 +18,6 @@ export interface ProductRow {
     FIXED_PERCENTAGE = "אחוזים קבועים",
     VARIABLE_PERCENTAGE = "אחוזים משתנים",
     FREE_PRODUCT = "מוצר מתנה",
-    TIP_CALCULATION = "חישוב טיפ"
+    TIP_CALCULATION = "חישוב טיפ",
+    QUANTITY_DISCOUNT = "הנחת כמות"
   }

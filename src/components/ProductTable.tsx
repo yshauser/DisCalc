@@ -83,8 +83,10 @@ const ProductTable: React.FC<ProductTableProps> = ({
       
       {/* Table Rows */}
       <div className="table-body">
-        {rows.map(row => (
-          <div key={row.id} className="table-row">
+        {rows.map((row,index) => (
+          <div key={row.id} 
+          className={`table-row ${discountType == DiscountType.FREE_PRODUCT && row.isGroupStart && index !== 0 ? 'border-t' : ''}`}
+          >
             <div className="table-cell">
               <div className="input-wrapper">
                 <input
@@ -92,7 +94,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
                   value={row.price}
                   onChange={(e) => handleInputChange(row.id, 'price', e.target.value)}
                   className="form-control"
-                  placeholder="הזן מחיר"
+                  // placeholder={"..."}
                 />
                 <span className="input-addon">₪</span>
               </div>
@@ -104,7 +106,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
                   value={row.discount}
                   onChange={(e) => handleInputChange(row.id, 'discount', e.target.value)}
                   className="form-control"
-                  placeholder="הזן אחוז"
+                  // placeholder="הזן אחוז"
                   min="0"
                   max="100"
                   disabled={isDiscountDisabled}
@@ -156,6 +158,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
           <div className="totals-header">סיכום</div>
           <div className="table-row totals-row">
             <div className="table-cell">
+            <label>מחיר מקורי</label>
               <div className="input-wrapper">
                 <input
                   type="text"
@@ -167,6 +170,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
               </div>
             </div>
             <div className="table-cell">
+            <label>הנחה</label>
               <div className="input-wrapper">
                 <input
                   type="text"
@@ -178,6 +182,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
               </div>
             </div>
             <div className="table-cell">
+            <label>לתשלום</label>
               <div className="input-wrapper">
                 <input
                   type="text"

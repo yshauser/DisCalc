@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { DiscountType } from '../models/types';
+import { RotateCw } from 'lucide-react';
 
 interface DiscountTypeSelectorProps {
   selectedType: DiscountType;
@@ -12,6 +13,7 @@ interface DiscountTypeSelectorProps {
   onFixedDiscountChange: (value: string) => void;
   onBuyAmountChange: (value: string) => void;
   onGetAmountChange: (value: string) => void;
+  onRefresh: () => void;
 }
 
 const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
@@ -22,7 +24,8 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
   onTypeChange,
   onFixedDiscountChange,
   onBuyAmountChange,
-  onGetAmountChange
+  onGetAmountChange,
+  onRefresh
 }) => {
   return (
     <div className="discount-type-section">
@@ -30,18 +33,27 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
         <label htmlFor="discountType" className="discount-type-label">
           סוג הנחה:
         </label>
-        <select
-          id="discountType"
-          className="discount-type-select"
-          value={selectedType}
-          onChange={(e) => onTypeChange(e.target.value as DiscountType)}
-        >
-          {Object.values(DiscountType).map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
+        <div className="discount-type-controls">
+          <select
+            id="discountType"
+            className="discount-type-select"
+            value={selectedType}
+            onChange={(e) => onTypeChange(e.target.value as DiscountType)}
+          >
+            {Object.values(DiscountType).map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+          <button 
+            onClick={onRefresh}
+            className="refresh-button"
+            title="נקה נתונים" // Clear data tooltip
+          >
+            <RotateCw size={16} />
+          </button>
+        </div>
       </div>
 
       {selectedType === DiscountType.FIXED_PERCENTAGE && (

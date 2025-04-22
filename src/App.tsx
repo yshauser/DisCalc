@@ -14,6 +14,7 @@ import FreeProductDiscount from './discountTypes/FreeProductDiscount';
 import TipCalculator from './components/TipCalculator';
 
 const App: React.FC = () => {
+  // console.log ('in app');
   // State for rows and totals
   const [rows, setRows] = useState<ProductRow[]>([
     { id: 1, price: '', discount: '', finalPrice: '' }
@@ -65,23 +66,41 @@ const App: React.FC = () => {
     setGetAmount(value);
   };
 
+  // Handle refresh/reset button click
+  const handleRefresh = () => {
+    // Reset rows to initial state (single empty row)
+    setRows([{ id: 1, price: '', discount: '', finalPrice: '' }]);
+    // Reset totals
+    setTotals({
+      price: '0',
+      discount: '0',
+      finalPrice: '0'
+    });
+    
+    // Reset fixed discount if applicable
+    if (discountType === DiscountType.FIXED_PERCENTAGE) {
+      setFixedDiscount('');
+    }
+  };
+
   return (
     <div className="app">
       <Header />
       
       <main className="main">
         <div className="calculator-container">
-          <DiscountTypeSelector
-            selectedType={discountType}
-            fixedDiscount={fixedDiscount}
-            buyAmount={buyAmount}
-            getAmount={getAmount}
-            onTypeChange={handleDiscountTypeChange}
-            onFixedDiscountChange={handleFixedDiscountChange}
-            onBuyAmountChange={handleBuyAmountChange}
-            onGetAmountChange={handleGetAmountChange}
-          />
-          
+            <DiscountTypeSelector
+              selectedType={discountType}
+              fixedDiscount={fixedDiscount}
+              buyAmount={buyAmount}
+              getAmount={getAmount}
+              onTypeChange={handleDiscountTypeChange}
+              onFixedDiscountChange={handleFixedDiscountChange}
+              onBuyAmountChange={handleBuyAmountChange}
+              onGetAmountChange={handleGetAmountChange}
+              onRefresh={handleRefresh}
+            />
+
           {/* Render the appropriate discount component based on selected type */}
           {discountType === DiscountType.FIXED_PERCENTAGE && (
             <FixedPercentageDiscount 
