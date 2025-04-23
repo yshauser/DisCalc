@@ -1,18 +1,59 @@
 // src/components/Header.tsx
 
-import React from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import './Header.css';
+import packageJson from '../../package.json'; // Adjust path as needed
+// import ilFlag from '../assets/flags/il.png';
+// import ukFlag from '../assets/flags/uk.png';
 
+interface MenuItem {
+  label: string;
+  icon?: React.FC<{ className?: string }>;
+}
 const Header: React.FC = () => {
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isLangOpen, setLangOpen] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
+  const [language, setLanguage] = useState<'HE' | 'EN'>('HE');
+
+  const langRef = useRef<HTMLDivElement>(null);
+
+  const toggleMenu = () => setMenuOpen(!isMenuOpen);
+  const toggleLang = () => setLangOpen(!isLangOpen);
+
+  const handleLanguageSelect = (lang: 'HE' | 'EN') => {
+    setLanguage(lang);
+    setLangOpen(false);
+    document.documentElement.dir = lang === 'HE' ? 'rtl' : 'ltr';
+  };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      langRef.current &&
+      !langRef.current.contains(event.target as Node)
+    ) {
+      setLangOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
-    <header className="header">
-      <button className="menu-button" aria-label="Menu">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="4" x2="20" y1="12" y2="12"></line>
-          <line x1="4" x2="20" y1="6" y2="6"></line>
-          <line x1="4" x2="20" y1="18" y2="18"></line>
-        </svg>
-      </button>
+    <>
+      <header className="header">
+        <button className="menu-button" onClick={toggleMenu} aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="4" x2="20" y1="12" y2="12" />
+            <line x1="4" x2="20" y1="6" y2="6" />
+            <line x1="4" x2="20" y1="18" y2="18" />
+          </svg>
+        </button>
+
+
+
       <div className="header-content">
         <div className="logo-container">
           <svg className="header-logo" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -24,23 +65,54 @@ const Header: React.FC = () => {
         </div>
         <div className="header-title">
           <h1>כמה זה יוצא לי - מחשבון הנחות</h1>
-          {/* <h2>מחשבון הנחות</h2> */}
         </div>
       </div>
+
       <div className="actions-container">
-        <button className="language-toggle" aria-label="Toggle language">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m5 8 6 6"></path>
-            <path d="m4 14 6-6 2-3"></path>
-            <path d="M2 5h12"></path>
-            <path d="M7 2h1"></path>
-            <path d="m22 22-5-10-5 10"></path>
-            <path d="M14 18h6"></path>
-          </svg>
-        </button>
-      </div>
-    </header>
+          <div className="language-selector" ref={langRef}>
+            <button className="language-toggle" onClick={toggleLang}>
+              {/* <img src={language === 'HE' ? ilFlag : ukFlag} alt="flag" className="flag-icon" /> */}
+              <span>{language}</span>
+            </button>
+            {isLangOpen && (
+              <div className="language-dropdown">
+                <div onClick={() => handleLanguageSelect('HE')}>
+                  {/* <img src={ilFlag} alt="IL" className="flag-icon" /> */}
+                  HE
+                </div>
+                <div onClick={() => handleLanguageSelect('EN')}>
+                  {/* <img src={ukFlag} alt="EN" className="flag-icon" /> */}
+                  EN
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+        {isMenuOpen && (
+          <div className="menu-dropdown">
+            <div onClick={() => { setShowAbout(true); setMenuOpen(false); }}>
+              אודות
+            </div>
+          </div>
+        )}
+      </header>
+
+      {showAbout && (
+        <div className="modal-overlay" onClick={() => setShowAbout(false)}>
+          <div className="about-modal" onClick={(e) => e.stopPropagation()}>
+            <h2>כמה זה יוצא לי - מחשבון הנחות</h2>
+            <p>גרסה: {packageJson.version}</p>
+            <p>מפתח: יוסי האוזר</p>
+            <p>
+              צור קשר: <a href="mailto:yshauser@gmail.com">yshauser@gmail.com</a>
+            </p>
+            <button onClick={() => setShowAbout(false)}>סגור</button>
+          </div>
+        </div>
+      )}
+    </>
   );
+
 };
 
 export default Header;

@@ -19,18 +19,6 @@
     white-space: nowrap;
   }
   
-  /* .product-table td {
-    border-bottom: 1px solid #eee;
-  } */
-  
-  /* .action-header {
-    width: 60px;
-  }
-  
-  .action-cell {
-    width: 60px;
-    text-align: center;
-  } */
   .product-table .col-price {
     width: 30%;
   }
@@ -65,10 +53,6 @@
     margin-bottom: 10px;
   }
   
-  /* .border-t td {
-    border-top: 2px solid #888;
-  } */
-
   .border-t {
     border-top: 2px dashed #e5e7eb;
     padding-top: 10px;
@@ -87,22 +71,7 @@
     margin: 0 auto;
   }
   
-  /* Mobile view adjustments */
-  /* @media screen and (max-width: 767px) {
-    .desktop-view {
-      display: none;
-    }
-    
-    .mobile-view {
-      display: block;
-    }
-    
-    .card-body {
-      display: flex;
-      flex-direction: column;
-    }
-  } */
-  
+ 
   @media screen and (max-width: 767px) {
     .product-table th,
     .product-table td {

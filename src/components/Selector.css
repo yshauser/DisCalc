@@ -69,20 +69,97 @@
     max-width: 100%;
   }
   
-    .buy-get-container {
+  /* Free Product container*/
+
+  .buy-get-container {
+      display: flex;
+      align-items: center;
+      gap: 8px; /* or 12px depending on spacing you want */
+      flex-wrap: wrap; /* optional: wrap on smaller screens */
+    }
+    
+    .buy-get-text {
+      font-size: 16px;
+      white-space: nowrap;
+    }
+    
+    .buy-amount-input input,
+    .get-amount-input input {
+      width: 60px;
+      text-align: center;
+    }
+
+  /* Variable percentage */
+      .variable-mode-selector {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 15px;
+      }
+      
+      .variable-mode-buttons {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+      
+      .mode-button {
+        padding: 8px 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f8f8f8;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 14px;
+      }
+      
+      .mode-button:hover {
+        background-color: #eaeaea;
+      }
+      
+      .mode-button-active {
+        background-color: #007bff;
+        color: white;
+        border-color: #0056b3;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      
+      .tiered-discounts-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .tiered-discount-row {
         display: flex;
         align-items: center;
-        gap: 8px; /* or 12px depending on spacing you want */
-        flex-wrap: wrap; /* optional: wrap on smaller screens */
+        gap: 10px;
       }
       
-      .buy-get-text {
-        font-size: 16px;
-        white-space: nowrap;
+      .tier-label {
+        min-width: 80px;
+        text-align: left;
       }
       
-      .buy-amount-input input,
-      .get-amount-input input {
-        width: 60px;
-        text-align: center;
+      .tier-discount-input {
+        width: 120px;
       }
+      
+      .tier-actions {
+        display: flex;
+        gap: 5px;
+      }
+      
+      .tier-button {
+        /* background: none; */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+
+  
+

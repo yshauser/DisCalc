@@ -29,8 +29,12 @@ const App: React.FC = () => {
   // State for discount type
   const [discountType, setDiscountType] = useState<DiscountType>(DiscountType.FIXED_PERCENTAGE);
   const [fixedDiscount, setFixedDiscount] = useState<string>('');
-  const [buyAmount, setBuyAmount] = useState<string>('2');
-  const [getAmount, setGetAmount] = useState<string>('1');
+  // For Free product discount
+    const [buyAmount, setBuyAmount] = useState<string>('2');
+    const [getAmount, setGetAmount] = useState<string>('1');
+  // For variable percentage discount
+    const [variableMode, setVariableMode] = useState<'free' | 'tiered'>('free');
+    const [tierDiscounts, setTierDiscounts] = useState<string[]>(['']);
 
   // Handle discount type change
   const handleDiscountTypeChange = (type: DiscountType) => {
@@ -69,7 +73,7 @@ const App: React.FC = () => {
   // Handle refresh/reset button click
   const handleRefresh = () => {
     // Reset rows to initial state (single empty row)
-    setRows([{ id: 1, price: '', discount: '', finalPrice: '' }]);
+    setRows([{ id: 1, price: '', discount: '', finalPrice: '', isGroupStart: false}]);
     // Reset totals
     setTotals({
       price: '0',
@@ -80,7 +84,14 @@ const App: React.FC = () => {
     // Reset fixed discount if applicable
     if (discountType === DiscountType.FIXED_PERCENTAGE) {
       setFixedDiscount('');
+    } else if (discountType === DiscountType.VARIABLE_PERCENTAGE) {
+      // setVariableMode('free');
+      setTierDiscounts(['']);
+    } else if (discountType === DiscountType.FREE_PRODUCT) {
+      setBuyAmount('2');
+      setGetAmount('1');
     }
+
   };
 
   return (
@@ -99,6 +110,11 @@ const App: React.FC = () => {
               onBuyAmountChange={handleBuyAmountChange}
               onGetAmountChange={handleGetAmountChange}
               onRefresh={handleRefresh}
+
+              variableMode={variableMode}
+              tierDiscounts={tierDiscounts}
+              onVariableModeChange={setVariableMode}
+              onTierDiscountsChange={setTierDiscounts}
             />
 
           {/* Render the appropriate discount component based on selected type */}
@@ -114,7 +130,10 @@ const App: React.FC = () => {
           {discountType === DiscountType.VARIABLE_PERCENTAGE && (
             <VariablePercentageDiscount 
               rows={rows}
+              setRows={setRows}
               setTotals={setTotals}
+              variableMode={variableMode}
+              tierDiscounts={tierDiscounts}
             />
           )}
           
