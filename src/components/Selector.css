@@ -1,0 +1,88 @@
+    
+    /* Discount Type Selector */
+  .discount-type-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .discount-type-container {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .discount-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .discount-type-label {
+    font-weight: bold;
+  }
+  
+  .discount-type-select {
+    width: 100%;
+    height: 38px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .refresh-button {
+    background-color: transparent;
+    color: #666;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    min-height: 32px;
+    min-width: 32px;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  
+  .refresh-button:hover {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  /* Fixed discount container */
+  .fixed-discount-container {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .fixed-discount-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .fixed-discount-input {
+    max-width: 100%;
+  }
+  
+    .buy-get-container {
+        display: flex;
+        align-items: center;
+        gap: 8px; /* or 12px depending on spacing you want */
+        flex-wrap: wrap; /* optional: wrap on smaller screens */
+      }
+      
+      .buy-get-text {
+        font-size: 16px;
+        white-space: nowrap;
+      }
+      
+      .buy-amount-input input,
+      .get-amount-input input {
+        width: 60px;
+        text-align: center;
+      }

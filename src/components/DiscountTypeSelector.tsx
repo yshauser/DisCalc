@@ -1,6 +1,7 @@
 import React from 'react';
 import { DiscountType } from '../models/types';
 import { RotateCw } from 'lucide-react';
+import './Selector.css';
 
 interface DiscountTypeSelectorProps {
   selectedType: DiscountType;
@@ -78,33 +79,29 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
 
       {selectedType === DiscountType.FREE_PRODUCT && (
         <div className="buy-get-container">
-          <div className="buy-get-row">
-            <span className="buy-get-text">קנו</span>
-            <div className="buy-amount-input">
-              <input
-                type="number"
-                value={buyAmount}
-                onChange={(e) => onBuyAmountChange(e.target.value)}
-                className="form-control"
-                min="1"
-                max="100"
-              />
-            </div>
+          <span className="buy-get-text">קנו</span>
+          <div className="buy-amount-input">
+            <input
+              type="number"
+              value={buyAmount}
+              onChange={(e) => onBuyAmountChange(e.target.value)}
+              className="form-control"
+              min="1"
+              max="100"
+            />
           </div>
-          <div className="buy-get-row">
-            <span className="buy-get-text">קבלו</span>
-            <div className="get-amount-input">
-              <input
-                type="number"
-                value={getAmount}
-                onChange={(e) => onGetAmountChange(e.target.value)}
-                className="form-control"
-                min="1"
-                max="100"
-              />
-            </div>
-            <span className="buy-get-text">במתנה</span>
+          <span className="buy-get-text">קבלו</span>
+          <div className="get-amount-input">
+            <input
+              type="number"
+              value={getAmount}
+              onChange={(e) => onGetAmountChange(e.target.value)}
+              className="form-control"
+              min="1"
+              max="100"
+            />
           </div>
+          <span className="buy-get-text">במתנה</span>
         </div>
       )}
     </div>

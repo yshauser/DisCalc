@@ -1,0 +1,142 @@
+/* Table styles */
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .product-table th,
+  .product-table td {
+    padding: 10px;
+    vertical-align: middle;
+    text-align: center;
+  }
+  
+  .product-table th {
+    background-color: #f8f8f8;
+    border-bottom: 2px solid #ccc;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  
+  /* .product-table td {
+    border-bottom: 1px solid #eee;
+  } */
+  
+  /* .action-header {
+    width: 60px;
+  }
+  
+  .action-cell {
+    width: 60px;
+    text-align: center;
+  } */
+  .product-table .col-price {
+    width: 30%;
+  }
+  
+  .product-table .col-discount {
+    width: 30%;
+  }
+  
+  .product-table .col-final {
+    width: 30%;
+  }
+  
+  .product-table .col-action {
+    width: 10%;
+    text-align: center;
+  }
+
+  .totals-row td {
+    border-top: 2px solid #888;
+    padding-top: 15px;
+  }
+  
+  .totals-label {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+    .totals-header {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  /* .border-t td {
+    border-top: 2px solid #888;
+  } */
+
+  .border-t {
+    border-top: 2px dashed #e5e7eb;
+    padding-top: 10px;
+  }
+  
+  /* RTL specific styles */
+  [dir="rtl"] .product-table th,
+  [dir="rtl"] .product-table td {
+    text-align: center;
+  }
+  
+  /* Make the form controls inside table cells responsive */
+  .product-table .input-wrapper {
+    width: 100%;
+    max-width: 150px;
+    margin: 0 auto;
+  }
+  
+  /* Mobile view adjustments */
+  /* @media screen and (max-width: 767px) {
+    .desktop-view {
+      display: none;
+    }
+    
+    .mobile-view {
+      display: block;
+    }
+    
+    .card-body {
+      display: flex;
+      flex-direction: column;
+    }
+  } */
+  
+  @media screen and (max-width: 767px) {
+    .product-table th,
+    .product-table td {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    .input-wrapper {
+      max-width: 100%;
+    }
+  
+    .form-control {
+      font-size: 14px;
+    }
+  }
+
+  /* Desktop view adjustments */
+  @media screen and (min-width: 768px) {
+    .desktop-view {
+      display: block;
+    }
+    
+    .mobile-view {
+      display: none;
+    }
+    
+    /* Add row button positioning */
+    .add-button {
+      width: auto;
+      margin-left: auto;
+    }
+    
+    [dir="rtl"] .add-button {
+      margin-left: 0;
+      margin-right: auto;
+    }
+  }
