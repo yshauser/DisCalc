@@ -17,7 +17,8 @@ export interface ProductRow {
   export enum DiscountType {
     FIXED_PERCENTAGE = "אחוזים קבועים",
     VARIABLE_PERCENTAGE = "אחוזים משתנים",
+    PAYMENT_DISCOUNT = "הנחה על סכום",
     FREE_PRODUCT = "מוצר מתנה",
-    TIP_CALCULATION = "חישוב טיפ",
-    QUANTITY_DISCOUNT = "הנחת כמות"
+    QUANTITY_DISCOUNT = "הנחת כמות",
+    TIP_CALCULATION = "חישוב טיפ"
   }

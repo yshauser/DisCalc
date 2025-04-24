@@ -194,17 +194,24 @@
   z-index: 2000;
 }
 
-.about-modal {
+.about-modal-content {
   background: white;
   padding: 24px;
   border-radius: 12px;
-  width: 90%;
+  width: 85%;
   max-width: 400px;
-  text-align: center;
   color: black;
+  text-align: start; /* Allows RTL/LTR alignment */
+  direction: inherit; /* Inherits page direction */
+  position: relative;
 }
 
-.about-modal button {
+.about-modal-content h2,
+.about-modal-content p {
+  margin: 0.5rem 0;
+}
+
+.about-close-button {
   margin-top: 16px;
   padding: 8px 16px;
   background: #4a6fa5;
@@ -212,4 +219,7 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  text-align: center;
+  display: block;
+  margin: 1.5rem auto 0; /* Center the button horizontally */
 }

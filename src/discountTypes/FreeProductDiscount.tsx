@@ -18,6 +18,7 @@ const FreeProductDiscount: React.FC<FreeProductDiscountProps> = ({
   setRows,
   setTotals
 }) => {
+  console.log('in free product');
   // Apply the "Buy X Get Y Free" discount logic
   useEffect(() => {
     const buyAmountNum = parseInt(buyAmount, 10);

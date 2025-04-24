@@ -9,12 +9,16 @@ interface DiscountTypeSelectorProps {
   fixedDiscount: string;
   buyAmount: string;
   getAmount: string;
+  buyPrice: string;
+  payPrice: string;
   variableMode: 'free' | 'tiered';
   tierDiscounts: string[];
   onTypeChange: (type: DiscountType) => void;
   onFixedDiscountChange: (value: string) => void;
   onBuyAmountChange: (value: string) => void;
   onGetAmountChange: (value: string) => void;
+  onBuyPriceChange: (value: string) => void;
+  onPayPriceChange: (value: string) => void;
   onVariableModeChange: (mode: 'free' | 'tiered') => void;
   onTierDiscountsChange: (discounts: string[]) => void;
   onRefresh: () => void;
@@ -27,12 +31,16 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
   fixedDiscount,
   buyAmount,
   getAmount,
+  buyPrice,
+  payPrice,
   variableMode,
   tierDiscounts,
   onTypeChange,
   onFixedDiscountChange,
   onBuyAmountChange,
   onGetAmountChange,
+  onBuyPriceChange,
+  onPayPriceChange,
   onVariableModeChange,
   onTierDiscountsChange,
   onRefresh
@@ -180,6 +188,36 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
               ))}
             </div>
           )}
+        </div>
+      )}
+
+{selectedType === DiscountType.PAYMENT_DISCOUNT && (
+        <div className="buy-get-container">
+          <span className="buy-get-text">קנו ב-</span>
+          <div className="buy-amount-input">
+            <input
+              type="number"
+              value={buyPrice}
+              onChange={(e) => onBuyPriceChange(e.target.value)}
+              className="form-control"
+              min="1"
+              max="100"
+            />
+            <span className="input-addon">₪</span>
+          </div>
+          <span className="buy-get-text">שלמו רק</span>
+          <div className="get-amount-input">
+            <input
+              type="number"
+              value={payPrice}
+              onChange={(e) => onPayPriceChange(e.target.value)}
+              className="form-control"
+              min="1"
+              max="100"
+            />
+            <span className="input-addon">₪</span>
+          </div>
+          <span className="buy-get-text">במתנה</span>
         </div>
       )}
 

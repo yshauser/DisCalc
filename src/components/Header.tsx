@@ -3,8 +3,8 @@
 import React, {useState, useRef, useEffect} from 'react';
 import './Header.css';
 import packageJson from '../../package.json'; // Adjust path as needed
-// import ilFlag from '../assets/flags/il.png';
-// import ukFlag from '../assets/flags/uk.png';
+import ilFlag from '../assets/flags/il.png';
+import ukFlag from '../assets/flags/uk.png';
 
 interface MenuItem {
   label: string;
@@ -71,17 +71,17 @@ const Header: React.FC = () => {
       <div className="actions-container">
           <div className="language-selector" ref={langRef}>
             <button className="language-toggle" onClick={toggleLang}>
-              {/* <img src={language === 'HE' ? ilFlag : ukFlag} alt="flag" className="flag-icon" /> */}
+              <img src={language === 'HE' ? ilFlag : ukFlag} alt="flag" className="flag-icon" />
               <span>{language}</span>
             </button>
             {isLangOpen && (
               <div className="language-dropdown">
                 <div onClick={() => handleLanguageSelect('HE')}>
-                  {/* <img src={ilFlag} alt="IL" className="flag-icon" /> */}
+                  <img src={ilFlag} alt="IL" className="flag-icon" />
                   HE
                 </div>
                 <div onClick={() => handleLanguageSelect('EN')}>
-                  {/* <img src={ukFlag} alt="EN" className="flag-icon" /> */}
+                  <img src={ukFlag} alt="EN" className="flag-icon" />
                   EN
                 </div>
               </div>
@@ -99,14 +99,14 @@ const Header: React.FC = () => {
 
       {showAbout && (
         <div className="modal-overlay" onClick={() => setShowAbout(false)}>
-          <div className="about-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="about-modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>כמה זה יוצא לי - מחשבון הנחות</h2>
             <p>גרסה: {packageJson.version}</p>
             <p>מפתח: יוסי האוזר</p>
             <p>
               צור קשר: <a href="mailto:yshauser@gmail.com">yshauser@gmail.com</a>
             </p>
-            <button onClick={() => setShowAbout(false)}>סגור</button>
+            <button onClick={() => setShowAbout(false)} className="about-close-button">סגור</button>
           </div>
         </div>
       )}

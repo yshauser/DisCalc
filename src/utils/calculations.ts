@@ -43,3 +43,30 @@ export const calculateTotals = (rows: ProductRow[]): Totals => {
     finalPrice: totalFinalPrice.toFixed(2)
   };
 };
+
+export const calculateTotalsForPaymentDiscount = (buy: string, pay:string, rows: ProductRow[]): Totals  => {
+  let totalPrice = 0;
+  let totalFinalPrice = 0;
+  
+  rows.forEach(row => {
+    const price = parseFloat(row.price);
+    // const finalPrice = parseFloat(row.finalPrice);
+    
+    if (!isNaN(price)) {
+      totalPrice += price;
+    }
+  });
+  const paymentDiscountTimes = Math.floor(totalPrice / parseFloat(buy));
+  totalFinalPrice = totalPrice - (paymentDiscountTimes * (parseFloat(buy)-parseFloat(pay)));
+  
+  let totalDiscount = 0;
+  if (totalPrice > 0 && totalFinalPrice > 0) {
+    totalDiscount = 100 - ((totalFinalPrice * 100) / totalPrice);
+  }
+  
+  return {
+    price: totalPrice.toFixed(2),
+    discount: totalDiscount.toFixed(2),
+    finalPrice: totalFinalPrice.toFixed(2)
+  };
+};

@@ -10,6 +10,7 @@ import { ProductRow, Totals, DiscountType } from './models/types';
 // Import discount type components
 import FixedPercentageDiscount from './discountTypes/FixedPercentageDiscount';
 import VariablePercentageDiscount from './discountTypes/VariablePercentageDiscount';
+import ReducedPaymentDiscount from './discountTypes/ReducedPaymentDiscount';
 import FreeProductDiscount from './discountTypes/FreeProductDiscount';
 import TipCalculator from './components/TipCalculator';
 
@@ -35,6 +36,9 @@ const App: React.FC = () => {
   // For variable percentage discount
     const [variableMode, setVariableMode] = useState<'free' | 'tiered'>('free');
     const [tierDiscounts, setTierDiscounts] = useState<string[]>(['']);
+  // For Reduced Payment discount
+    const [buyPrice, setBuyPrice] = useState<string>('');
+    const [payPrice, setPayPrice] = useState<string>('');
 
   // Handle discount type change
   const handleDiscountTypeChange = (type: DiscountType) => {
@@ -70,6 +74,16 @@ const App: React.FC = () => {
     setGetAmount(value);
   };
 
+  // Handle buy price change
+  const handleBuyPriceChange = (value: string) => {
+    setBuyPrice(value);
+  };
+
+  // Handle pay price change
+  const handlePayPriceChange = (value: string) => {
+    setPayPrice(value);
+  };
+
   // Handle refresh/reset button click
   const handleRefresh = () => {
     // Reset rows to initial state (single empty row)
@@ -90,6 +104,9 @@ const App: React.FC = () => {
     } else if (discountType === DiscountType.FREE_PRODUCT) {
       setBuyAmount('2');
       setGetAmount('1');
+    } else if (discountType === DiscountType.PAYMENT_DISCOUNT) {
+      setBuyPrice('');
+      setPayPrice('');
     }
 
   };
@@ -105,10 +122,14 @@ const App: React.FC = () => {
               fixedDiscount={fixedDiscount}
               buyAmount={buyAmount}
               getAmount={getAmount}
+              buyPrice={buyPrice}
+              payPrice={payPrice}
               onTypeChange={handleDiscountTypeChange}
               onFixedDiscountChange={handleFixedDiscountChange}
               onBuyAmountChange={handleBuyAmountChange}
               onGetAmountChange={handleGetAmountChange}
+              onBuyPriceChange={handleBuyPriceChange}
+              onPayPriceChange={handlePayPriceChange}
               onRefresh={handleRefresh}
 
               variableMode={variableMode}
@@ -136,7 +157,17 @@ const App: React.FC = () => {
               tierDiscounts={tierDiscounts}
             />
           )}
-          
+
+          {discountType === DiscountType.PAYMENT_DISCOUNT && (
+            <ReducedPaymentDiscount 
+              rows={rows}
+              buyPrice={buyPrice}
+              payPrice={payPrice}
+              setRows={setRows}
+              setTotals={setTotals}
+            />
+          )}
+
           {discountType === DiscountType.FREE_PRODUCT && (
             <FreeProductDiscount 
               rows={rows}

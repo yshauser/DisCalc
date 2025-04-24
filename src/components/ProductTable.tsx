@@ -28,6 +28,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
 
   // Handle price or discount change
   const handleInputChange = (id: number, field: 'price' | 'discount', value: string) => {
+    console.log ('handle input', {id, field, value });
     setRows(prevRows => {
       return prevRows.map(row => {
         if (row.id === id) {
@@ -37,9 +38,11 @@ const ProductTable: React.FC<ProductTableProps> = ({
           if (discountType !== DiscountType.FIXED_PERCENTAGE || field === 'price') {
             if (updatedRow.price && updatedRow.discount) {
               updatedRow.finalPrice = calculateFinalPrice(updatedRow.price, updatedRow.discount);
+            // } else {
+            //   updatedRow.finalPrice = updatedRow.price;
             }
           }
-          
+          console.log ('updated', {updatedRow})
           return updatedRow;
         }
         return row;
@@ -68,7 +71,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
   };
 
   // Determine if discount input should be disabled (for fixed percentage mode)
-  const isDiscountDisabled = discountType === DiscountType.FIXED_PERCENTAGE || discountType === DiscountType.FREE_PRODUCT;
+  const isDiscountDisabled = discountType === DiscountType.FIXED_PERCENTAGE || discountType === DiscountType.FREE_PRODUCT || discountType === DiscountType.PAYMENT_DISCOUNT;
 
   return (
   <div className="calculator-table">
