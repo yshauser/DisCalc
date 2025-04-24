@@ -12,6 +12,7 @@ import FixedPercentageDiscount from './discountTypes/FixedPercentageDiscount';
 import VariablePercentageDiscount from './discountTypes/VariablePercentageDiscount';
 import ReducedPaymentDiscount from './discountTypes/ReducedPaymentDiscount';
 import FreeProductDiscount from './discountTypes/FreeProductDiscount';
+import QuantityDiscount from './discountTypes/QuantityDiscount';
 import TipCalculator from './components/TipCalculator';
 
 const App: React.FC = () => {
@@ -39,8 +40,11 @@ const App: React.FC = () => {
   // For Reduced Payment discount
     const [buyPrice, setBuyPrice] = useState<string>('');
     const [payPrice, setPayPrice] = useState<string>('');
+  // For Quantity discount
+    const [priceForSingle, setPriceForSingle] = useState<string>('');
+    const [priceForMultiple, setPriceForMultiple] = useState<string>('');
+    const [quantityInGroup, setQuantityInGroup] = useState<string>('2');
 
-  // Handle discount type change
   const handleDiscountTypeChange = (type: DiscountType) => {
     setDiscountType(type);
     
@@ -59,29 +63,36 @@ const App: React.FC = () => {
     });
   };
 
-  // Handle fixed discount change
   const handleFixedDiscountChange = (value: string) => {
     setFixedDiscount(value);
   };
 
-  // Handle buy amount change
   const handleBuyAmountChange = (value: string) => {
     setBuyAmount(value);
   };
 
-  // Handle get amount change
   const handleGetAmountChange = (value: string) => {
     setGetAmount(value);
   };
 
-  // Handle buy price change
   const handleBuyPriceChange = (value: string) => {
     setBuyPrice(value);
   };
 
-  // Handle pay price change
   const handlePayPriceChange = (value: string) => {
     setPayPrice(value);
+  };
+
+  const handlePriceForSingleChange = (value: string) => {
+    setPriceForSingle(value);
+  };
+  
+  const handlePriceForMultipleChange = (value: string) => {
+    setPriceForMultiple(value);
+  };
+  
+  const handleQuantityInGroupChange = (value: string) => {
+    setQuantityInGroup(value);
   };
 
   // Handle refresh/reset button click
@@ -107,6 +118,10 @@ const App: React.FC = () => {
     } else if (discountType === DiscountType.PAYMENT_DISCOUNT) {
       setBuyPrice('');
       setPayPrice('');
+    } else if (discountType === DiscountType.QUANTITY_DISCOUNT) {
+      setPriceForSingle('');
+      setPriceForMultiple('');
+      setQuantityInGroup('2');
     }
 
   };
@@ -120,22 +135,32 @@ const App: React.FC = () => {
             <DiscountTypeSelector
               selectedType={discountType}
               fixedDiscount={fixedDiscount}
-              buyAmount={buyAmount}
-              getAmount={getAmount}
-              buyPrice={buyPrice}
-              payPrice={payPrice}
               onTypeChange={handleDiscountTypeChange}
               onFixedDiscountChange={handleFixedDiscountChange}
+
+              buyAmount={buyAmount}
+              getAmount={getAmount}
               onBuyAmountChange={handleBuyAmountChange}
               onGetAmountChange={handleGetAmountChange}
+
+              buyPrice={buyPrice}
+              payPrice={payPrice}
               onBuyPriceChange={handleBuyPriceChange}
               onPayPriceChange={handlePayPriceChange}
-              onRefresh={handleRefresh}
+
+              priceForSingle={priceForSingle}
+              priceForMultiple={priceForMultiple}
+              quantityInGroup={quantityInGroup}
+              onPriceForSingleChange={handlePriceForSingleChange}
+              onPriceForMultipleChange={handlePriceForMultipleChange}
+              onQuantityInGroupChange={handleQuantityInGroupChange}
 
               variableMode={variableMode}
               tierDiscounts={tierDiscounts}
               onVariableModeChange={setVariableMode}
               onTierDiscountsChange={setTierDiscounts}
+
+              onRefresh={handleRefresh}
             />
 
           {/* Render the appropriate discount component based on selected type */}
@@ -177,6 +202,17 @@ const App: React.FC = () => {
               setTotals={setTotals}
             />
           )}
+
+          {discountType === DiscountType.QUANTITY_DISCOUNT && (
+            <QuantityDiscount
+              rows={rows}
+              priceForSingle={priceForSingle}
+              priceForMultiple={priceForMultiple}
+              quantityInGroup={quantityInGroup}
+              setRows={setRows}
+              setTotals={setTotals}
+            />
+          )}
           
           {/* Show either ProductTable or TipCalculator based on discount type */}
           {discountType === DiscountType.TIP_CALCULATION ? (
@@ -188,6 +224,7 @@ const App: React.FC = () => {
               rows={rows}
               totals={totals}
               discountType={discountType}
+              priceForSingle = {priceForSingle}
               setRows={setRows}
             />
           )}

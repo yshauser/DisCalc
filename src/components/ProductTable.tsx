@@ -10,6 +10,7 @@ interface ProductTableProps {
   rows: ProductRow[];
   totals: Totals;
   discountType: DiscountType;
+  priceForSingle: string;
   setRows: React.Dispatch<React.SetStateAction<ProductRow[]>>;
   setTotals?: React.Dispatch<React.SetStateAction<Totals>>;
 }
@@ -18,6 +19,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
   rows,
   totals,
   discountType,
+  priceForSingle,
   setRows,
   setTotals
 }) => {
@@ -59,6 +61,14 @@ const ProductTable: React.FC<ProductTableProps> = ({
     if (discountType === DiscountType.FIXED_PERCENTAGE && rows.length > 0 && rows[0].discount) {
       newRow.discount = rows[0].discount;
     }
+
+    // If using quantity discount, apply it to the new row
+    // if (discountType === DiscountType.QUANTITY_DISCOUNT && rows.length > 0 && rows[0].price) {
+    //   newRow.price = rows[0].price;
+
+      if (discountType === DiscountType.QUANTITY_DISCOUNT && priceForSingle) {
+        newRow.price = priceForSingle;
+    }
     
     setRows([...rows, newRow]);
   };
@@ -87,7 +97,8 @@ const ProductTable: React.FC<ProductTableProps> = ({
       <tbody>
       {rows.map((row, index) => (
         <tr key={row.id}
-        className={` ${discountType == DiscountType.FREE_PRODUCT && row.isGroupStart && index !== 0 ? 'border-t' : ''}`}
+        className={` ${((discountType == DiscountType.FREE_PRODUCT)|| (discountType == DiscountType.QUANTITY_DISCOUNT))
+          && row.isGroupStart && index !== 0 ? 'border-t' : ''}`}
         >
           <td className="col-price">
             <div className="input-wrapper">

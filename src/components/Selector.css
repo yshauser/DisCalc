@@ -159,7 +159,35 @@
         align-items: center;
         justify-content: center;
       }
+   /* Quantity Discount*/   
+      .quantity-discount-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+      }
       
-
+      .quantity-discount-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      
+      .quantity-label {
+        font-weight: 500;
+      }
+      
+      .quantity-group-input {
+        width: 60px;
+      }
+      
+      .quantity-group-input select {
+        /* width: 100%; */
+        width: fit-content;
+        padding: 6px;
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+      }
   
 

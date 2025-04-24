@@ -11,6 +11,9 @@ interface DiscountTypeSelectorProps {
   getAmount: string;
   buyPrice: string;
   payPrice: string;
+  priceForSingle: string;
+  priceForMultiple: string;
+  quantityInGroup: string;
   variableMode: 'free' | 'tiered';
   tierDiscounts: string[];
   onTypeChange: (type: DiscountType) => void;
@@ -19,6 +22,9 @@ interface DiscountTypeSelectorProps {
   onGetAmountChange: (value: string) => void;
   onBuyPriceChange: (value: string) => void;
   onPayPriceChange: (value: string) => void;
+  onPriceForSingleChange: (value: string) => void;
+  onPriceForMultipleChange: (value: string) => void;
+  onQuantityInGroupChange: (value: string) => void;
   onVariableModeChange: (mode: 'free' | 'tiered') => void;
   onTierDiscountsChange: (discounts: string[]) => void;
   onRefresh: () => void;
@@ -29,23 +35,30 @@ type VariableDiscountMode = 'free' | 'tiered';
 const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
   selectedType,
   fixedDiscount,
-  buyAmount,
+  buyAmount, //
   getAmount,
   buyPrice,
   payPrice,
   variableMode,
   tierDiscounts,
+  priceForSingle,
+  priceForMultiple,
+  quantityInGroup,
   onTypeChange,
   onFixedDiscountChange,
   onBuyAmountChange,
   onGetAmountChange,
   onBuyPriceChange,
   onPayPriceChange,
+  onPriceForSingleChange,
+  onPriceForMultipleChange,
+  onQuantityInGroupChange,
   onVariableModeChange,
   onTierDiscountsChange,
   onRefresh
 }) => {
 
+  
 
   const handleTierDiscountChange = (index: number, value: string) => {
     const newTierDiscounts = [...tierDiscounts];
@@ -191,7 +204,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
         </div>
       )}
 
-{selectedType === DiscountType.PAYMENT_DISCOUNT && (
+      {selectedType === DiscountType.PAYMENT_DISCOUNT && (
         <div className="buy-get-container">
           <span className="buy-get-text">קנו ב-</span>
           <div className="input-wrapper buy-amount-input">
@@ -245,6 +258,49 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
             />
           </div>
           <span className="buy-get-text">במתנה</span>
+        </div>
+      )}
+
+      {selectedType === DiscountType.QUANTITY_DISCOUNT && (
+        <div className="quantity-discount-container">
+          <div className="quantity-discount-row">
+            <span className="quantity-label">פריט בודד ב-</span>
+            <div className="input-wrapper">
+              <input
+                type="number"
+                value={priceForSingle}
+                onChange={(e) => onPriceForSingleChange(e.target.value)}
+                className="form-control"
+                min="0"
+              />
+              <span className="input-addon">₪</span>
+            </div>
+          </div>
+          
+          <div className="quantity-discount-row">
+            <div className="quantity-group-input">
+              <select
+                value={quantityInGroup}
+                onChange={(e) => onQuantityInGroupChange(e.target.value)}
+                className="form-control"
+              >
+                {Array.from({length: 9}, (_, i) => i + 2).map(num => (
+                  <option key={num} value={num}>{num}</option>
+                ))}
+              </select>
+            </div>
+            <span className="quantity-label">פריטים ב-</span>
+            <div className="input-wrapper">
+              <input
+                type="number"
+                value={priceForMultiple}
+                onChange={(e) => onPriceForMultipleChange(e.target.value)}
+                className="form-control"
+                min="0"
+              />
+              <span className="input-addon">₪</span>
+            </div>
+          </div>
         </div>
       )}
     </div>
