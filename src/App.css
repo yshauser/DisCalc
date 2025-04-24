@@ -79,7 +79,7 @@
     height: 36px; /* Adjusted to match form-control total height */
     display: flex;
     align-items: center;
-    top: 0;
+    top: -1px;
   }
   
   /* RTL adjustments */

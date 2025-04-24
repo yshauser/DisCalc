@@ -113,7 +113,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
               value={fixedDiscount}
               onChange={(e) => onFixedDiscountChange(e.target.value)}
               className="form-control"
-              placeholder="הזן אחוז הנחה"
+              placeholder="אחוז הנחה"
               min="0"
               max="100"
             />
@@ -194,7 +194,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
 {selectedType === DiscountType.PAYMENT_DISCOUNT && (
         <div className="buy-get-container">
           <span className="buy-get-text">קנו ב-</span>
-          <div className="buy-amount-input">
+          <div className="input-wrapper buy-amount-input">
             <input
               type="number"
               value={buyPrice}
@@ -206,7 +206,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
             <span className="input-addon">₪</span>
           </div>
           <span className="buy-get-text">שלמו רק</span>
-          <div className="get-amount-input">
+          <div className="input-wrapper get-amount-input">
             <input
               type="number"
               value={payPrice}
@@ -217,7 +217,6 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
             />
             <span className="input-addon">₪</span>
           </div>
-          <span className="buy-get-text">במתנה</span>
         </div>
       )}
 
