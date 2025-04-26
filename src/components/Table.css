@@ -58,6 +58,26 @@
     padding-top: 10px;
   }
   
+/* for quantity comparison*/
+.col-amount {
+  width: 27%;
+}
+
+.col-price-per-unit {
+  width: 30%;
+}
+
+.amount-input-group {
+  display: flex;
+  align-items: center;
+}
+
+.amount-text {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+
   /* RTL specific styles */
   [dir="rtl"] .product-table th,
   [dir="rtl"] .product-table td {

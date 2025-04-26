@@ -16,6 +16,7 @@ interface DiscountTypeSelectorProps {
   quantityInGroup: string;
   variableMode: 'free' | 'tiered';
   tierDiscounts: string[];
+  comparisonMode: 'identical' | 'different';
   onTypeChange: (type: DiscountType) => void;
   onFixedDiscountChange: (value: string) => void;
   onBuyAmountChange: (value: string) => void;
@@ -27,6 +28,7 @@ interface DiscountTypeSelectorProps {
   onQuantityInGroupChange: (value: string) => void;
   onVariableModeChange: (mode: 'free' | 'tiered') => void;
   onTierDiscountsChange: (discounts: string[]) => void;
+  onComparisonModeChange: (mode: 'identical' | 'different') => void;
   onRefresh: () => void;
 }
 
@@ -44,6 +46,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
   priceForSingle,
   priceForMultiple,
   quantityInGroup,
+  comparisonMode,
   onTypeChange,
   onFixedDiscountChange,
   onBuyAmountChange,
@@ -55,6 +58,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
   onQuantityInGroupChange,
   onVariableModeChange,
   onTierDiscountsChange,
+  onComparisonModeChange,
   onRefresh
 }) => {
 
@@ -303,6 +307,28 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
           </div>
         </div>
       )}
+
+      {selectedType === DiscountType.QUANTITY_COMPARISON && (
+        <div className="comparison-mode-container">
+          <div className="comparison-mode-buttons">
+            <button
+              type="button"
+              className={`mode-button ${comparisonMode === 'identical' ? 'mode-button-active' : ''}`}
+              onClick={() => onComparisonModeChange('identical')}
+            >
+              גדלים זהים
+            </button>
+            <button
+              type="button"
+              className={`mode-button ${comparisonMode === 'different' ? 'mode-button-active' : ''}`}
+              onClick={() => onComparisonModeChange('different')}
+            >
+              גדלים שונים
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

@@ -90,16 +90,21 @@
     }
 
   /* Variable percentage */
-      .variable-mode-selector {
-        display: flex;
+      .variable-discount-container,
+      .comparison-mode-container {
+        /* display: flex; */
         gap: 20px;
         margin-bottom: 15px;
+        justify-content: center;
       }
       
-      .variable-mode-buttons {
+      .variable-mode-buttons,
+      .comparison-mode-buttons {
         display: flex;
         gap: 10px;
         margin-bottom: 15px;
+        justify-content: center;
+
       }
       
       .mode-button {

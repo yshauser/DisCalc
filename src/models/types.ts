@@ -5,7 +5,9 @@ export interface ProductRow {
     price: string;
     discount: string;
     finalPrice: string;
-    isGroupStart?: boolean;
+    isGroupStart?: boolean; // for quantity discount and free product discount
+    amount?: string;        // for quantity comparison
+    pricePerUnit?: string;  // for quantity comparison
   }
   
   export interface Totals {
@@ -20,5 +22,6 @@ export interface ProductRow {
     PAYMENT_DISCOUNT = "הנחה על סכום",
     FREE_PRODUCT = "מוצר מתנה",
     QUANTITY_DISCOUNT = "הנחת כמות",
+    QUANTITY_COMPARISON = "השוואת כמויות",
     TIP_CALCULATION = "חישוב טיפ"
   }

@@ -13,6 +13,7 @@ import VariablePercentageDiscount from './discountTypes/VariablePercentageDiscou
 import ReducedPaymentDiscount from './discountTypes/ReducedPaymentDiscount';
 import FreeProductDiscount from './discountTypes/FreeProductDiscount';
 import QuantityDiscount from './discountTypes/QuantityDiscount';
+import QuantityComparison from './discountTypes/QuantityComarison';
 import TipCalculator from './components/TipCalculator';
 
 const App: React.FC = () => {
@@ -44,6 +45,8 @@ const App: React.FC = () => {
     const [priceForSingle, setPriceForSingle] = useState<string>('');
     const [priceForMultiple, setPriceForMultiple] = useState<string>('');
     const [quantityInGroup, setQuantityInGroup] = useState<string>('2');
+  //  For Quantity comparison
+    const [comparisonMode, setComparisonMode] = useState<'identical' | 'different'>('identical');
 
   const handleDiscountTypeChange = (type: DiscountType) => {
     setDiscountType(type);
@@ -160,6 +163,9 @@ const App: React.FC = () => {
               onVariableModeChange={setVariableMode}
               onTierDiscountsChange={setTierDiscounts}
 
+              comparisonMode={comparisonMode}
+              onComparisonModeChange={setComparisonMode}
+
               onRefresh={handleRefresh}
             />
 
@@ -214,20 +220,29 @@ const App: React.FC = () => {
             />
           )}
           
-          {/* Show either ProductTable or TipCalculator based on discount type */}
-          {discountType === DiscountType.TIP_CALCULATION ? (
-            <TipCalculator 
-              setTotals={setTotals}
-            />
-          ) : (
-            <ProductTable 
+          {discountType === DiscountType.QUANTITY_COMPARISON && (
+            <QuantityComparison
               rows={rows}
-              totals={totals}
-              discountType={discountType}
-              priceForSingle = {priceForSingle}
               setRows={setRows}
+              comparisonMode={comparisonMode}
             />
           )}
+
+          {/* Show either ProductTable or TipCalculator based on discount type or nothing for comparison mode*/}
+          {discountType !== DiscountType.TIP_CALCULATION && 
+              discountType !== DiscountType.QUANTITY_COMPARISON ? (
+              <ProductTable 
+                rows={rows}
+                totals={totals}
+                discountType={discountType}
+                priceForSingle={priceForSingle}
+                setRows={setRows}
+              />
+            ) : discountType === DiscountType.TIP_CALCULATION && (
+              <TipCalculator 
+                setTotals={setTotals}
+              />
+            )}
         </div>
       </main>
     </div>
