@@ -4,8 +4,14 @@ import React from 'react';
 import { ProductRow, Totals, DiscountType } from '../models/types';
 import { calculateFinalPrice } from '../utils/calculations';
 import TipCalculator from './TipCalculator';
+import DifferentSizesComparison from './DifferentSizesComparison';
 import './Table.css';
 
+interface ExtendedProductRow extends ProductRow {
+  productSize?: string;
+  productUnit?: 'גרם' | 'ק"ג' | 'מ"ל' | 'ליטר';
+  standardizedPrice?: string;
+}
 interface ProductTableProps {
   rows: ProductRow[];
   totals: Totals;
@@ -13,6 +19,7 @@ interface ProductTableProps {
   priceForSingle: string;
   setRows: React.Dispatch<React.SetStateAction<ProductRow[]>>;
   setTotals?: React.Dispatch<React.SetStateAction<Totals>>;
+  comparisonMode?: 'identical' | 'different';
 }
 
 const ProductTable: React.FC<ProductTableProps> = ({
@@ -21,12 +28,23 @@ const ProductTable: React.FC<ProductTableProps> = ({
   discountType,
   priceForSingle,
   setRows,
-  setTotals
+  setTotals,
+  comparisonMode
 }) => {
-  // If TIP_CALCULATION is selected, render the TipCalculator component
-  if (discountType === DiscountType.TIP_CALCULATION && setTotals) {
-    return <TipCalculator setTotals={setTotals} />;
-  }
+  console.log ('ProdTable', {discountType, comparisonMode})
+  // the code that replaces the regular product table for tips and for quantityComparison-different is in App.tsx
+  
+  // // If TIP_CALCULATION is selected, render the TipCalculator component
+  // if (discountType === DiscountType.TIP_CALCULATION && setTotals) {
+  //   console.log ('PT tip')
+  //   return <TipCalculator setTotals={setTotals} />;
+  // }
+
+  // // If comparison mode is 'different', render the DifferentSizesComparison component
+  // else if (comparisonMode === 'different') {
+  //   console.log ('PT comp')
+  //   return <DifferentSizesComparison rows={rows} setRows={setRows} />;
+  // }
 
   // Handle price or discount change
   const handleInputChange = (id: number, field: 'price' | 'discount', value: string) => {

@@ -32,7 +32,7 @@ interface DiscountTypeSelectorProps {
   onRefresh: () => void;
 }
 
-type VariableDiscountMode = 'free' | 'tiered';
+// type VariableDiscountMode = 'free' | 'tiered';
 
 const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
   selectedType,

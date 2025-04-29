@@ -15,6 +15,7 @@ import FreeProductDiscount from './discountTypes/FreeProductDiscount';
 import QuantityDiscount from './discountTypes/QuantityDiscount';
 import QuantityComparison from './discountTypes/QuantityComarison';
 import TipCalculator from './components/TipCalculator';
+import DifferentSizesComparison from './components/DifferentSizesComparison';
 
 const App: React.FC = () => {
   // console.log ('in app');
@@ -50,13 +51,42 @@ const App: React.FC = () => {
 
   const handleDiscountTypeChange = (type: DiscountType) => {
     setDiscountType(type);
-    
+    console.log ('handle discount type change', {type})
+    if (type === DiscountType.QUANTITY_COMPARISON) {
+      console.log ('QC ', {comparisonMode})
+      setRows([
+        { 
+          id: 1, 
+          price: '', 
+          amount: '1', 
+          pricePerUnit: '', 
+          discount: '', 
+          finalPrice: '',
+          productSize: '100',
+          productUnit: 'גרם',
+          standardizedPrice: ''
+        },
+        { 
+          id: 2, 
+          price: '', 
+          amount: '1', 
+          pricePerUnit: '', 
+          discount: '', 
+          finalPrice: '',
+          productSize: '100',
+          productUnit: 'גרם',
+          standardizedPrice: ''
+        }
+      ]);
+      setComparisonMode(comparisonMode);
+    } else {
     // Reset rows' discount values when changing discount type
     setRows(prevRows => 
       prevRows.map(row => {
         return { ...row, discount: '', finalPrice: '' };
       })
     );
+    }
     
     // Reset totals when changing discount type
     setTotals({
@@ -125,8 +155,15 @@ const App: React.FC = () => {
       setPriceForSingle('');
       setPriceForMultiple('');
       setQuantityInGroup('2');
+    } else if (discountType === DiscountType.QUANTITY_COMPARISON) {
+      setRows([{ id: 1, price: '', discount: '', finalPrice: '', 
+        amount: '1', pricePerUnit:'', productSize: '100', productUnit: 'גרם', standardizedPrice: ''
+      },
+      { id: 2, price: '', discount: '', finalPrice: '', 
+        amount: '1', pricePerUnit:'', productSize: '100', productUnit: 'גרם', standardizedPrice: ''
+      }
+    ]);
     }
-
   };
 
   return (
@@ -230,7 +267,7 @@ const App: React.FC = () => {
 
           {/* Show either ProductTable or TipCalculator based on discount type or nothing for comparison mode*/}
           {discountType !== DiscountType.TIP_CALCULATION && 
-              discountType !== DiscountType.QUANTITY_COMPARISON ? (
+              (discountType !== DiscountType.QUANTITY_COMPARISON)? (
               <ProductTable 
                 rows={rows}
                 totals={totals}
@@ -238,9 +275,15 @@ const App: React.FC = () => {
                 priceForSingle={priceForSingle}
                 setRows={setRows}
               />
-            ) : discountType === DiscountType.TIP_CALCULATION && (
+            ) : discountType === DiscountType.TIP_CALCULATION ? (
               <TipCalculator 
                 setTotals={setTotals}
+              />
+              
+            ) : discountType === DiscountType.QUANTITY_COMPARISON && comparisonMode === 'different' && (
+              <DifferentSizesComparison 
+                rows={rows}
+                setRows={setRows}
               />
             )}
         </div>

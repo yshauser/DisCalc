@@ -8,6 +8,9 @@ export interface ProductRow {
     isGroupStart?: boolean; // for quantity discount and free product discount
     amount?: string;        // for quantity comparison
     pricePerUnit?: string;  // for quantity comparison
+    productSize?: string;   // for quantity comparison diff size
+    productUnit?: 'גרם' | 'ק"ג' | 'מ"ל' | 'ליטר'; // for quantity comparison diff size
+    standardizedPrice?: string;   // for quantity comparison diff size
   }
   
   export interface Totals {

@@ -77,6 +77,176 @@
   margin-left: 5px;
 }
 
+/* Add these styles to your existing Table.css file */
+
+/* Different Sizes Comparison styles */
+.different-sizes-comparison .product-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.different-sizes-comparison .product-table th,
+.different-sizes-comparison .product-table td {
+  padding: 8px;
+  text-align: center;
+}
+
+.different-sizes-comparison .product-table th:first-child,
+.different-sizes-comparison .product-table td:first-child {
+  width: 120px;
+  text-align: right;
+}
+
+.different-sizes-comparison .row-label {
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.different-sizes-comparison .form-control {
+  /* width: 100%; */
+  width: -webkit-fill-available;
+  /* min-width: 80px; */
+  padding: 6px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.different-sizes-comparison .readonly {
+  background-color: #f8f9fa;
+  cursor: default;
+}
+
+.different-sizes-comparison .input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.different-sizes-comparison .input-addon {
+  /* position: absolute;
+  left: 12px;
+  pointer-events: none;
+}
+
+.input-addon { */
+  position: absolute;
+  right: 0;
+  padding: 0 10px;
+  height: 36px; /* Adjusted to match form-control total height */
+  display: flex;
+  align-items: center;
+  top: -1px;
+}
+
+/* RTL adjustments */
+[dir="rtl"] .different-sizes-comparison .input-addon {
+  right: auto;
+  left: 0;
+  /* border-right: 1px solid #ccc; */
+  border-left: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.different-sizes-comparison .amount-input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.different-sizes-comparison .amount-text {
+  margin-right: 4px;
+}
+
+/* Style for the better price input */
+.form-control.better-price {
+  border: 3px solid green !important; /* Bold green border */
+  font-weight: bold;              /* Bold text */
+  box-shadow: 0 0 5px rgba(0, 128, 0, 0.3); /* Optional: slight shadow for emphasis */
+}
+
+/* If you want the entire input wrapper to be affected */
+.input-wrapper:has(.better-price) {
+  position: relative;
+}
+
+/* Optional: You can add a subtle background color or other effects */
+.form-control.better-price:focus {
+  border-color: green !important;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 128, 0, 0.5);
+}
+
+/* Styles for product size row */
+.product-size-row {
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+}
+
+.product-size-cell {
+  padding: 8px 12px;
+  text-align: right;
+}
+
+.standardized-price-cell {
+  padding: 8px 12px;
+  text-align: right;
+}
+
+.product-size-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.product-size-input {
+  width: 80px;
+}
+
+.product-unit-select {
+  width: 100px;
+}
+
+.standardized-price-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.standardized-price-label {
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+.standardized-price-input {
+  width: 120px;
+}
+
+/* Styles for comparison mode buttons in DiscountTypeSelector */
+.comparison-mode-container {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.comparison-mode-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.mode-button {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mode-button-active {
+  background-color: #007bff;
+  color: white;
+  border-color: #0069d9;
+}
 
   /* RTL specific styles */
   [dir="rtl"] .product-table th,

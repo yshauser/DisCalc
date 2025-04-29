@@ -15,11 +15,10 @@ const TipCalculator: React.FC<TipCalculatorProps> = ({ setTotals }) => {
   const [tipPayment, setTipPayment] = useState<string>(DEFAULT_TIP);
   const [payment, setPayment] = useState<string>('');
   const [lastUpdated, setLastUpdated] = useState<'price' | 'tipPercentage' | 'tipPayment' | 'payment' | null>(null);
-
+console.log ('in tip calculator')
   // Calculate based on which fields were updated
   useEffect(() => {
-    if (!price || isNaN(parseFloat(price)) || parseFloat(price) <= 0) return;
-
+    if (!price || isNaN(parseFloat(price)) || parseFloat(price) <= 0) return
     if (lastUpdated === 'price' || lastUpdated === 'tipPercentage') {
       if (tipPercentage && !isNaN(parseFloat(tipPercentage))) {
         const priceValue = parseFloat(price);
