@@ -1,11 +1,12 @@
 // src/App.tsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import Header from './components/Header';
+import Header, {CurrencyContext, CurrencyType} from './components/Header';
 import DiscountTypeSelector from './components/DiscountTypeSelector';
 import ProductTable from './components/ProductTable';
-import { ProductRow, Totals, DiscountType } from './models/types';
+import { ProductRow, Totals, DiscountType, ProductUnits } from './models/types';
+import { useTranslation } from 'react-i18next';
 
 // Import discount type components
 import FixedPercentageDiscount from './discountTypes/FixedPercentageDiscount';
@@ -15,10 +16,15 @@ import FreeProductDiscount from './discountTypes/FreeProductDiscount';
 import QuantityDiscount from './discountTypes/QuantityDiscount';
 import QuantityComparison from './discountTypes/QuantityComarison';
 import TipCalculator from './components/TipCalculator';
-import DifferentSizesComparison from './components/DifferentSizesComparison';
+import DifferentSizesComparison from './discountTypes/DifferentSizesComparison';
+
+import './i18n/i18n';
 
 const App: React.FC = () => {
   // console.log ('in app');
+  const {t, i18n} = useTranslation();
+  const [currency, setCurrency] = useState<CurrencyType>('ILS');
+
   // State for rows and totals
   const [rows, setRows] = useState<ProductRow[]>([
     { id: 1, price: '', discount: '', finalPrice: '' }
@@ -49,6 +55,11 @@ const App: React.FC = () => {
   //  For Quantity comparison
     const [comparisonMode, setComparisonMode] = useState<'identical' | 'different'>('identical');
 
+  // Default unit localization
+  const getDefaultUnit = () => {
+    return t('units.gram');
+  };
+
   const handleDiscountTypeChange = (type: DiscountType) => {
     setDiscountType(type);
     console.log ('handle discount type change', {type})
@@ -63,7 +74,7 @@ const App: React.FC = () => {
           discount: '', 
           finalPrice: '',
           productSize: '100',
-          productUnit: 'גרם',
+          productUnit: getDefaultUnit(),
           standardizedPrice: ''
         },
         { 
@@ -74,7 +85,7 @@ const App: React.FC = () => {
           discount: '', 
           finalPrice: '',
           productSize: '100',
-          productUnit: 'גרם',
+          productUnit: getDefaultUnit(),
           standardizedPrice: ''
         }
       ]);
@@ -157,17 +168,37 @@ const App: React.FC = () => {
       setQuantityInGroup('2');
     } else if (discountType === DiscountType.QUANTITY_COMPARISON) {
       setRows([{ id: 1, price: '', discount: '', finalPrice: '', 
-        amount: '1', pricePerUnit:'', productSize: '100', productUnit: 'גרם', standardizedPrice: ''
+        amount: '1', pricePerUnit:'', productSize: '100', productUnit: getDefaultUnit(), standardizedPrice: ''
       },
       { id: 2, price: '', discount: '', finalPrice: '', 
-        amount: '1', pricePerUnit:'', productSize: '100', productUnit: 'גרם', standardizedPrice: ''
+        amount: '1', pricePerUnit:'', productSize: '100', productUnit: getDefaultUnit(), standardizedPrice: ''
       }
     ]);
     }
   };
 
+    // Update units when language changes
+    useEffect(() => {
+      if (discountType === DiscountType.QUANTITY_COMPARISON) {
+        setRows(prevRows => 
+          prevRows.map(row => {
+            // Translate the unit if it exists
+            const unitKey = Object.entries(ProductUnits).find(([_, value]) => 
+              row.productUnit === t(`units.${value}`, { lng: i18n.language === 'HE' ? 'EN' : 'HE' })
+            )?.[0];
+            
+            return { 
+              ...row, 
+              productUnit: unitKey ? t(`units.${ProductUnits[parseInt(unitKey)]}`) : getDefaultUnit()
+            };
+          })
+        );
+      }
+    }, [i18n.language]);
+
   return (
     <div className="app">
+      <CurrencyContext.Provider value={{ currency, setCurrency }}>
       <Header />
       
       <main className="main">
@@ -288,6 +319,7 @@ const App: React.FC = () => {
             )}
         </div>
       </main>
+      </CurrencyContext.Provider>
     </div>
   );
 };

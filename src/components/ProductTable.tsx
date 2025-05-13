@@ -1,17 +1,12 @@
 // src/components/ProductTable.tsx
 
-import React from 'react';
+import React, {useContext} from 'react';
 import { ProductRow, Totals, DiscountType } from '../models/types';
 import { calculateFinalPrice } from '../utils/calculations';
-import TipCalculator from './TipCalculator';
-import DifferentSizesComparison from './DifferentSizesComparison';
 import './Table.css';
+import { useTranslation } from 'react-i18next';
+import { CurrencyContext, currencySymbols } from './Header';
 
-interface ExtendedProductRow extends ProductRow {
-  productSize?: string;
-  productUnit?: 'גרם' | 'ק"ג' | 'מ"ל' | 'ליטר';
-  standardizedPrice?: string;
-}
 interface ProductTableProps {
   rows: ProductRow[];
   totals: Totals;
@@ -31,21 +26,13 @@ const ProductTable: React.FC<ProductTableProps> = ({
   setTotals,
   comparisonMode
 }) => {
-  console.log ('ProdTable', {discountType, comparisonMode})
+  
+  const { t } = useTranslation();
+  const { currency } = useContext(CurrencyContext);
+  // console.log ('ProdTable', {discountType, comparisonMode, currency})
+
   // the code that replaces the regular product table for tips and for quantityComparison-different is in App.tsx
   
-  // // If TIP_CALCULATION is selected, render the TipCalculator component
-  // if (discountType === DiscountType.TIP_CALCULATION && setTotals) {
-  //   console.log ('PT tip')
-  //   return <TipCalculator setTotals={setTotals} />;
-  // }
-
-  // // If comparison mode is 'different', render the DifferentSizesComparison component
-  // else if (comparisonMode === 'different') {
-  //   console.log ('PT comp')
-  //   return <DifferentSizesComparison rows={rows} setRows={setRows} />;
-  // }
-
   // Handle price or discount change
   const handleInputChange = (id: number, field: 'price' | 'discount', value: string) => {
     console.log ('handle input', {id, field, value });
@@ -58,8 +45,6 @@ const ProductTable: React.FC<ProductTableProps> = ({
           if (discountType !== DiscountType.FIXED_PERCENTAGE || field === 'price') {
             if (updatedRow.price && updatedRow.discount) {
               updatedRow.finalPrice = calculateFinalPrice(updatedRow.price, updatedRow.discount);
-            // } else {
-            //   updatedRow.finalPrice = updatedRow.price;
             }
           }
           console.log ('updated', {updatedRow})
@@ -80,10 +65,6 @@ const ProductTable: React.FC<ProductTableProps> = ({
       newRow.discount = rows[0].discount;
     }
 
-    // If using quantity discount, apply it to the new row
-    // if (discountType === DiscountType.QUANTITY_DISCOUNT && rows.length > 0 && rows[0].price) {
-    //   newRow.price = rows[0].price;
-
       if (discountType === DiscountType.QUANTITY_DISCOUNT && priceForSingle) {
         newRow.price = priceForSingle;
     }
@@ -101,14 +82,17 @@ const ProductTable: React.FC<ProductTableProps> = ({
   // Determine if discount input should be disabled (for fixed percentage mode)
   const isDiscountDisabled = discountType === DiscountType.FIXED_PERCENTAGE || discountType === DiscountType.FREE_PRODUCT || discountType === DiscountType.PAYMENT_DISCOUNT;
 
+  // Get the current currency symbol
+  const currencySymbol = currencySymbols[currency];
+
   return (
   <div className="calculator-table">
     <table className="product-table">
       <thead>
       <tr>
-        <th className="col-price">מחיר</th>
-        <th className="col-discount">הנחה</th>
-        <th className="col-final">מחיר אחרי הנחה</th>
+        <th className="col-price">{t(`productTable.price`)}</th>
+        <th className="col-discount">{t(`productTable.discount`)}</th>
+        <th className="col-final">{t(`productTable.finalPrice`)}</th>
         <th className="col-action"></th>
       </tr>
       </thead>
@@ -127,7 +111,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
                 className="form-control"
                 min="0"
               />
-              <span className="input-addon">₪</span>
+              <span className="input-addon">{currencySymbol}</span>
             </div>
           </td>
           <td className="col-discount">
@@ -152,7 +136,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
                 readOnly
                 className="form-control readonly"
               />
-              <span className="input-addon">₪</span>
+              <span className="input-addon">{currencySymbol}</span>
             </div>
           </td>
           <td className="col-action">
@@ -160,7 +144,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
               className="remove-button"
               onClick={() => removeRow(row.id)}
               disabled={rows.length === 1}
-              aria-label="הסר שורה"
+              aria-label={t(`productTable.remove`)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M18 6 6 18"></path>
@@ -175,7 +159,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
       {/* Totals Row */}
       {rows.length > 1 && (
         <tfoot>
-          <td className="totals-header">סיכום</td>
+          <td className="totals-header">{t(`productTable.total`)}</td>
           <tr className="totals-row">
             <td>
               {/* <div className="totals-label">מחיר מקורי</div> */}
@@ -186,7 +170,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
                   readOnly
                   className="form-control readonly bold"
                 />
-                <span className="input-addon">₪</span>
+                <span className="input-addon">{currencySymbol}</span>
               </div>
             </td>
             <td>
@@ -202,7 +186,6 @@ const ProductTable: React.FC<ProductTableProps> = ({
               </div>
             </td>
             <td>
-              {/* <div className="totals-label">לתשלום</div> */}
               <div className="input-wrapper">
                 <input
                   type="text"
@@ -210,7 +193,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
                   readOnly
                   className="form-control readonly bold"
                 />
-                <span className="input-addon">₪</span>
+                <span className="input-addon">{currencySymbol}</span>
               </div>
             </td>
             <td className="action-cell"></td>
@@ -222,11 +205,11 @@ const ProductTable: React.FC<ProductTableProps> = ({
       {/* Add Row Button */}
       <div className="add-row-container">
         <button className="add-button" onClick={addRow}>
+         {t(`productTable.add`)}&nbsp;
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12h14"></path>
             <path d="M12 5v14"></path>
           </svg>
-          הוסף שורה
         </button>
       </div>
     </div>

@@ -39,7 +39,27 @@
     margin: 0 10px; /* Equal spacing from both sides */
     box-sizing: border-box;
   }
+  .calculator-instruction {
+    text-align: center;
+    font-size: 1.1rem;
+    /* margin-bottom: 1.5rem; */
+    padding-bottom: 10px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  .tip-calculator-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
   
+  .calculator-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
    
   /* Input styles */
   .input-wrapper {

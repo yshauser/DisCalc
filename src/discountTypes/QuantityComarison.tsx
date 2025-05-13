@@ -1,8 +1,11 @@
 // src/components/QuantityComparison.tsx
 
-import React from 'react';
+import React, {useContext} from 'react';
 import { ProductRow, Totals, DiscountType } from '../models/types';
 import '../components/Table.css';
+import { useTranslation } from 'react-i18next';
+import { CurrencyContext, currencySymbols } from '../components/Header';
+
 
 interface ExtendedProductRow extends ProductRow {
     productSize?: string;
@@ -22,6 +25,10 @@ const QuantityComparison: React.FC<QuantityComparisonProps> = ({
   setRows,
   comparisonMode
 }) => {
+
+  const { t } = useTranslation();
+  const { currency } = useContext(CurrencyContext);
+  
   // Handle input change for amount or price
   const handleInputChange = (id: number, field: 'amount' | 'price', value: string) => {
     console.log ('Quan Comp', {comparisonMode})
@@ -152,9 +159,9 @@ const removeRow = (id: number) => {
       <table className="product-table">
         <thead>
           <tr>
-            <th className="col-amount">כמות</th>
-            <th className="col-price">מחיר</th>
-            <th className="col-price-per-unit">מחיר ליחידה</th>
+            <th className="col-amount">{t(`productTable.quantity`)}</th>
+            <th className="col-price">{t(`productTable.price`)}</th>
+            <th className="col-price-per-unit">{t(`productTable.pricePerUnit`)}</th>
             <th className="col-action"></th>
           </tr>
         </thead>
@@ -172,7 +179,7 @@ const removeRow = (id: number) => {
                       <option key={num} value={num}>{num}</option>
                     ))}
                   </select>
-                  <span className="amount-text">ב-</span>
+                  <span className="amount-text">{t(`labels.inText`)}</span>
                 </div>
               </td>
               <td className="col-price">
@@ -184,7 +191,7 @@ const removeRow = (id: number) => {
                     className="form-control"
                     min="0"
                   />
-                  <span className="input-addon">₪</span>
+                  <span className="input-addon">{currencySymbols[currency]}</span>
                 </div>
               </td>
               <td className="col-price-per-unit">
@@ -195,7 +202,7 @@ const removeRow = (id: number) => {
                     readOnly
                     className={`form-control readonly ${(row as ExtendedProductRow).hasBetterPrice ? 'better-price' : ''}`}
                   />
-                  <span className="input-addon">₪</span>
+                  <span className="input-addon">{currencySymbols[currency]}</span>
                 </div>
               </td>
               <td className="col-action">
@@ -203,7 +210,7 @@ const removeRow = (id: number) => {
                   className="remove-button"
                   onClick={() => removeRow(row.id)}
                   disabled={rows.length <= 2}
-                  aria-label="הסר שורה"
+                  aria-label={t(`productTable.remove`)}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M18 6 6 18"></path>
@@ -219,12 +226,12 @@ const removeRow = (id: number) => {
       {/* Add Row Button */}
       <div className="add-row-container">
         <button className="add-button" onClick={addRow}>
+          {t(`productTable.add`)} &nbsp;
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12h14"></path>
             <path d="M12 5v14"></path>
           </svg>
-          הוסף שורה
-        </button>
+          </button>
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
 // src/components/DifferentSizesComparison.tsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ProductRow } from '../models/types';
-import './Table.css';
+import '../components/Table.css';
+import { useTranslation } from 'react-i18next';
+import { CurrencyContext, currencySymbols } from '../components/Header';
 
 interface ExtendedProductRow extends ProductRow {
   productSize?: string;
@@ -20,6 +22,9 @@ const DifferentSizesComparison: React.FC<DifferentSizesComparisonProps> = ({
   rows,
   setRows
 }) => {
+  
+  const {t} = useTranslation();
+  const { currency } = useContext(CurrencyContext);
   
   // Ensure we have exactly 2 rows for this comparison mode
   useEffect(() => {
@@ -175,13 +180,22 @@ const DifferentSizesComparison: React.FC<DifferentSizesComparisonProps> = ({
   const getStandardizedUnit = (rowIndex: number): { amount: number, unit: string } => {
     const productUnit = (rows[rowIndex] as ExtendedProductRow).productUnit || 'גרם';
     
-    if (productUnit === 'גרם' || productUnit === 'מ"ל') {
-      return { amount: 100, unit: productUnit };
+    // if (productUnit === 'גרם' || productUnit === 'מ"ל') {
+    //   return { amount: 100, unit: productUnit };
+    // } else {
+    //   return { amount: 1, unit: productUnit };
+    // }
+    if (productUnit === 'גרם') {
+      return { amount: 100, unit: t(`units.gram`) };
+    } else if (productUnit === 'מ"ל') {
+      return { amount: 100, unit: t(`units.ml`) };
+    } else if (productUnit === 'ליטר') {
+      return { amount: 1, unit: t(`units.liter`) };
     } else {
-      return { amount: 1, unit: productUnit };
+      return { amount: 1, unit: t(`units.kg`) };
     }
   };
-
+  
   const product1StandardUnit = getStandardizedUnit(0);
   const product2StandardUnit = getStandardizedUnit(1);
 
@@ -191,14 +205,14 @@ const DifferentSizesComparison: React.FC<DifferentSizesComparisonProps> = ({
         <thead>
           <tr>
             <th></th>
-            <th>מוצר 1</th>
-            <th>מוצר 2</th>
+            <th>{t(`labels.product`)} 1</th>
+            <th>{t(`labels.product`)} 2</th>
           </tr>
         </thead>
         <tbody>
           {/* Amount Row */}
           <tr>
-            <td className="row-label">כמות</td>
+            <td className="row-label">{t(`productTable.quantity`)}</td>
             <td className="col-amount">
               <div className="amount-input-group">
                 <select
@@ -231,7 +245,7 @@ const DifferentSizesComparison: React.FC<DifferentSizesComparisonProps> = ({
           
           {/* Price Row */}
           <tr>
-            <td className="row-label">מחיר</td>
+            <td className="row-label">{t(`productTable.price`)}</td>
             <td className="col-price">
               <div className="input-wrapper">
                 <input
@@ -241,7 +255,7 @@ const DifferentSizesComparison: React.FC<DifferentSizesComparisonProps> = ({
                   className="form-control"
                   min="0"
                 />
-                <span className="input-addon">₪</span>
+                <span className="input-addon">{currencySymbols[currency]}</span>
               </div>
             </td>
             <td className="col-price">
@@ -253,24 +267,24 @@ const DifferentSizesComparison: React.FC<DifferentSizesComparisonProps> = ({
                   className="form-control"
                   min="0"
                 />
-                <span className="input-addon">₪</span>
+                <span className="input-addon">{currencySymbols[currency]}</span>
               </div>
             </td>
           </tr>
           
           {/* Unit Row */}
           <tr>
-            <td className="row-label">יחידת מידה</td>
+            <td className="row-label">{t(`quantityComparison.measurementUnit`)}</td>
             <td>
               <select
                 value={(rows[0] as ExtendedProductRow).productUnit || 'גרם'}
                 onChange={(e) => handleInputChange(0, 'productUnit', e.target.value)}
                 className="form-control"
               >
-                <option value="גרם">גרם</option>
-                <option value="ק&quot;ג">ק"ג</option>
-                <option value="מ&quot;ל">מ"ל</option>
-                <option value="ליטר">ליטר</option>
+                <option value="גרם">{t(`units.gram`)}</option>
+                <option value="ק&quot;ג">{t(`units.kg`)}</option>
+                <option value="מ&quot;ל">{t(`units.ml`)}</option>
+                <option value="ליטר">{t(`units.liter`)}</option>
               </select>
             </td>
             <td>
@@ -279,17 +293,17 @@ const DifferentSizesComparison: React.FC<DifferentSizesComparisonProps> = ({
                 onChange={(e) => handleInputChange(1, 'productUnit', e.target.value)}
                 className="form-control"
               >
-                <option value="גרם">גרם</option>
-                <option value="ק&quot;ג">ק"ג</option>
-                <option value="מ&quot;ל">מ"ל</option>
-                <option value="ליטר">ליטר</option>
+                <option value="גרם">{t(`units.gram`)}</option>
+                <option value="ק&quot;ג">{t(`units.kg`)}</option>
+                <option value="מ&quot;ל">{t(`units.ml`)}</option>
+                <option value="ליטר">{t(`units.liter`)}</option>
               </select>
             </td>
           </tr>
           
           {/* Product Size Row */}
           <tr>
-            <td className="row-label">גודל מוצר</td>
+            <td className="row-label">{t(`quantityComparison.productSize`)}</td>
             <td>
               <div className="input-wrapper">
                 <input
@@ -317,7 +331,7 @@ const DifferentSizesComparison: React.FC<DifferentSizesComparisonProps> = ({
           {/* Standardized Price Row */}
           <tr>
             <td className="row-label">
-              מחיר ל-{product1StandardUnit.amount} {product1StandardUnit.unit}
+              {t(`quantityComparison.priceFor`)} {product1StandardUnit.amount} {product1StandardUnit.unit}
             </td>
             <td>
               <div className="input-wrapper">
@@ -327,7 +341,7 @@ const DifferentSizesComparison: React.FC<DifferentSizesComparisonProps> = ({
                   readOnly
                   className={`form-control readonly ${(rows[0] as ExtendedProductRow).hasBetterPrice ? 'better-price' : ''}`}
                   />
-                <span className="input-addon">₪</span>
+                <span className="input-addon">{currencySymbols[currency]}</span>
               </div>
             </td>
             <td>
@@ -338,7 +352,7 @@ const DifferentSizesComparison: React.FC<DifferentSizesComparisonProps> = ({
                   readOnly
                   className={`form-control readonly ${(rows[1] as ExtendedProductRow).hasBetterPrice ? 'better-price' : ''}`}
                   />
-                <span className="input-addon">₪</span>
+                <span className="input-addon">{currencySymbols[currency]}</span>
               </div>
             </td>
           </tr>

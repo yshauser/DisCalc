@@ -1,7 +1,10 @@
 // src/components/TipCalculator.tsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Totals } from '../models/types';
+import { useTranslation } from 'react-i18next';
+import { CurrencyContext, currencySymbols } from './Header';
+
 
 const DEFAULT_TIP = '';
 
@@ -16,6 +19,10 @@ const TipCalculator: React.FC<TipCalculatorProps> = ({ setTotals }) => {
   const [payment, setPayment] = useState<string>('');
   const [lastUpdated, setLastUpdated] = useState<'price' | 'tipPercentage' | 'tipPayment' | 'payment' | null>(null);
 console.log ('in tip calculator')
+
+  const {t} = useTranslation();
+  const { currency } = useContext(CurrencyContext);
+
   // Calculate based on which fields were updated
   useEffect(() => {
     if (!price || isNaN(parseFloat(price)) || parseFloat(price) <= 0) return
@@ -87,35 +94,35 @@ console.log ('in tip calculator')
   return (
     <div className="tip-calculator">
       <div className="calculator-instruction">
-        הכניסו אחוז טיפ, סכום טיפ או סכום כולל לתשלום
+        {t(`tip.tipText`)}
       </div>
       
       <div className="tip-calculator-fields">
         <div className="calculator-field">
-          <label>חשבון</label>
+          <label>{t(`tip.bill`)}</label>
           <div className="input-wrapper">
             <input
               type="number"
               value={price}
               onChange={(e) => handlePriceChange(e.target.value)}
               className="form-control"
-              placeholder="הזן מחיר"
+              placeholder={t(`tip.billText`)}
               min="0"
               step="0.01"
             />
-            <span className="input-addon">₪</span>
+            <span className="input-addon">{currencySymbols[currency]}</span>
           </div>
         </div>
         
         <div className="calculator-field">
-          <label>טיפ (%) </label>
+          <label>{t(`tip.tip`)} (%) </label>
           <div className="input-wrapper">
             <input
               type="number"
               value={tipPercentage}
               onChange={(e) => handleTipPercentChange(e.target.value)}
               className="form-control"
-              placeholder="הזן אחוז טיפ"
+              placeholder={t(`tip.tipPercentageText`)}
               min="0"
               step="0.5"
             />
@@ -124,34 +131,34 @@ console.log ('in tip calculator')
         </div>
 
         <div className="calculator-field">
-          <label>טיפ (₪)</label>
+          <label>{t(`tip.tip`)} ({currencySymbols[currency]})</label>
           <div className="input-wrapper">
             <input
               type="number"
               value={tipPayment}
               onChange={(e) => handleTipPaymentChange(e.target.value)}
               className="form-control"
-              placeholder="הזן סכום טיפ"
+              placeholder={t(`tip.tipAmountText`)}
               min="0"
               step="0.5"
             />
-            <span className="input-addon">₪</span>
+            <span className="input-addon">{currencySymbols[currency]}</span>
           </div>
         </div>
         
         <div className="calculator-field">
-          <label>לתשלום</label>
+          <label>{t(`tip.payment`)}</label>
           <div className="input-wrapper">
             <input
               type="number"
               value={payment}
               onChange={(e) => handlePaymentChange(e.target.value)}
               className="form-control"
-              placeholder="סכום לתשלום"
+              placeholder={t(`tip.paymentText`)}
               min="0"
               step="0.01"
             />
-            <span className="input-addon">₪</span>
+            <span className="input-addon">{currencySymbols[currency]}</span>
           </div>
         </div>
       </div>

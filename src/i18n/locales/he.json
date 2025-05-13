@@ -1,0 +1,88 @@
+{
+    "header": {
+      "title": "כמה זה יוצא לי",
+      "subtitle": "מחשבון הנחות",
+      "about": "אודות",
+      "close": "סגור"
+    },
+    "about": {
+      "title": "כמה זה יוצא לי - מחשבון הנחות",
+      "version": "גרסה",
+      "developer": "מפתח: יוסי האוזר",
+      "contact": "צור קשר"
+    },
+    "labels":{
+      "discountType": "סוג הנחה",
+      "discount_percentage": "אחוז הנחה",
+      "free":"חופשי",
+      "tiered":"מדורג",
+      "inText": "ב-",
+      "product": "מוצר"
+    },
+    "discountTypes": {
+      "FIXED_PERCENTAGE": "אחוזים קבועים",
+      "VARIABLE_PERCENTAGE": "אחוזים משתנים",
+      "PAYMENT_DISCOUNT": "הנחה על סכום",
+      "FREE_PRODUCT": "מוצר מתנה",
+      "QUANTITY_DISCOUNT": "הנחת כמות",
+      "QUANTITY_COMPARISON": "השוואת כמויות",
+      "TIP_CALCULATION": "חישוב טיפ"
+    },
+    "variablePercentage":{
+      "first":"הראשון ב-",
+      "second":"השני ב-",
+      "third":"השלישי ב-",
+      "fourth":"הרביעי ב-",
+      "fifth":"החמישי ב-"
+    },
+    "paymentDiscount": {
+      "buy": "קנו ב-",
+      "pay": "שלמו רק"
+    },
+    "quantityDiscount":{
+      "single":"פריט בודד ב-",
+      "multi":"פריטים ב-"
+    },
+    "quantityComparison":{
+      "same":"גדלים זהים",
+      "diff":"גדלים שונים",
+      "measurementUnit": "יחידת מידה",
+      "productSize": "גודל מוצר",
+      "Weight": "משקל",
+      "Volume": "נפח",
+      "priceFor": "מחיר ל-"
+    },
+    "tip":{
+      "tipText": "הכניסו אחוז טיפ, סכום טיפ או סכום כולל לתשלום",
+      "bill": "חשבון",
+      "tip": "טיפ",
+      "payment": "לתשלום",
+      "billText": "הזינו סכום חשבון",
+      "tipPercentageText": "הזינו אחוז טיפ",
+      "tipAmountText": "הזינו סכום טיפ",
+      "paymentText": "סכום לתשלום"
+    },
+    "productTable": {
+      "price": "מחיר",
+      "quantity": "כמות",
+      "pricePerUnit": "מחיר ליחידה",
+      "discount": "הנחה",
+      "finalPrice": "מחיר סופי",
+      "add": "הוסף שורה",
+      "remove": "הסר שורה",
+      "total": "סה״כ"
+    },
+    "units": {
+      "currency": "₪",
+      "gram": "גרם",
+      "kg": "ק\"ג",
+      "ml": "מ\"ל",
+      "liter": "ליטר"
+    },
+    "freeProduct": {
+      "buy": "קנו",
+      "get": "קבלו",
+      "forFree": "במתנה"
+    }
+  }
+  

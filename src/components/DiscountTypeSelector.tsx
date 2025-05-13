@@ -1,8 +1,10 @@
 //src/components/DiscountTypeSelector.tsx
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import { DiscountType } from '../models/types';
 import { RotateCw, Plus, Minus } from 'lucide-react';
 import './Selector.css';
+import { useTranslation } from 'react-i18next';
+import { CurrencyContext, currencySymbols } from './Header';
 
 interface DiscountTypeSelectorProps {
   selectedType: DiscountType;
@@ -62,7 +64,9 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
   onRefresh
 }) => {
 
-  
+  const { t } = useTranslation();
+  const { currency } = useContext(CurrencyContext);
+
 
   const handleTierDiscountChange = (index: number, value: string) => {
     const newTierDiscounts = [...tierDiscounts];
@@ -83,7 +87,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
   };
 
   const getTierLabel = (index: number) => {
-    const labels = ["הראשון ב-", "השני ב-", "השלישי ב-", "הרביעי ב-", "החמישי ב-"];
+    const labels = [t(`variablePercentage.first`),t(`variablePercentage.second`),t(`variablePercentage.third`),t(`variablePercentage.fourth`),t(`variablePercentage.fifth`)];
     return labels[index];
   };
 
@@ -93,7 +97,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
       <div className="discount-type-container">
         <div className="discount-header">
           <label htmlFor="discountType" className="discount-type-label">
-            סוג הנחה:
+          {t(`labels.discountType`)}:
           </label>
           <button 
             onClick={onRefresh}
@@ -112,7 +116,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
         >
           {Object.values(DiscountType).map((type) => (
             <option key={type} value={type}>
-              {type}
+              {t(`discountTypes.${type}`)}
             </option>
           ))}
         </select>
@@ -121,7 +125,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
       {selectedType === DiscountType.FIXED_PERCENTAGE && (
         <div className="fixed-discount-container">
           <label htmlFor="fixedDiscount" className="fixed-discount-label">
-            אחוז הנחה קבוע:
+          {t('discountTypes.FIXED_PERCENTAGE')} %:
           </label>
           <div className="input-wrapper fixed-discount-input">
             <input
@@ -130,7 +134,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
               value={fixedDiscount}
               onChange={(e) => onFixedDiscountChange(e.target.value)}
               className="form-control"
-              placeholder="אחוז הנחה"
+              placeholder={t(`labels.discount_percentage`)}
               min="0"
               max="100"
             />
@@ -147,14 +151,14 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
               className={`mode-button ${variableMode === 'free' ? 'mode-button-active' : ''}`}
               onClick={() => onVariableModeChange('free')}
             >
-              חופשי
+              {t(`labels.free`)}
             </button>
             <button
               type="button"
               className={`mode-button ${variableMode === 'tiered' ? 'mode-button-active' : ''}`}
               onClick={() => onVariableModeChange('tiered')}
             >
-              מדורג
+              {t(`labels.tiered`)}
             </button>
           </div>
 
@@ -169,7 +173,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
                       value={discount}
                       onChange={(e) => handleTierDiscountChange(index, e.target.value)}
                       className="form-control"
-                      placeholder="אחוז הנחה"
+                      placeholder={t(`labels.discount_percentage`)}
                       min="0"
                       max="100"
                     />
@@ -182,8 +186,8 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
                         type="button"
                         onClick={addTierDiscount}
                         className="tier-button add-button-small"
-                        aria-label="הוסף שורה"
-                        title="הוסף שורה"
+                        aria-label={t(`productTable.add`)}
+                        title={t(`productTable.add`)}
                       >
                         <Plus size={16} />
                       </button>
@@ -194,8 +198,8 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
                         type="button"
                         onClick={() => removeTierDiscount(index)}
                         className="tier-button remove-button"
-                        aria-label="הסר שורה"
-                        title="הסר שורה"
+                        aria-label={t(`productTable.remove`)}
+                        title={t(`productTable.remove`)}
                       >
                         <Minus size={16} />
                       </button>
@@ -210,7 +214,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
 
       {selectedType === DiscountType.PAYMENT_DISCOUNT && (
         <div className="buy-get-container">
-          <span className="buy-get-text">קנו ב-</span>
+          <span className="buy-get-text">{t(`paymentDiscount.buy`)}</span>
           <div className="input-wrapper buy-amount-input">
             <input
               type="number"
@@ -220,9 +224,9 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
               min="1"
               max="100"
             />
-            <span className="input-addon">₪</span>
+            <span className="input-addon">{currencySymbols[currency]}</span>
           </div>
-          <span className="buy-get-text">שלמו רק</span>
+          <span className="buy-get-text">{t(`paymentDiscount.pay`)}</span>
           <div className="input-wrapper get-amount-input">
             <input
               type="number"
@@ -232,14 +236,14 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
               min="1"
               max="100"
             />
-            <span className="input-addon">₪</span>
+            <span className="input-addon">{currencySymbols[currency]}</span>
           </div>
         </div>
       )}
 
       {selectedType === DiscountType.FREE_PRODUCT && (
         <div className="buy-get-container">
-          <span className="buy-get-text">קנו</span>
+          <span className="buy-get-text">{t('freeProduct.buy')}:</span>
           <div className="buy-amount-input">
             <input
               type="number"
@@ -250,7 +254,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
               max="100"
             />
           </div>
-          <span className="buy-get-text">קבלו</span>
+          <span className="buy-get-text">{t('freeProduct.get')}:</span>
           <div className="get-amount-input">
             <input
               type="number"
@@ -261,14 +265,14 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
               max="100"
             />
           </div>
-          <span className="buy-get-text">במתנה</span>
+          <span className="buy-get-text">{t('freeProduct.forFree')}</span>
         </div>
       )}
 
       {selectedType === DiscountType.QUANTITY_DISCOUNT && (
         <div className="quantity-discount-container">
           <div className="quantity-discount-row">
-            <span className="quantity-label">פריט בודד ב-</span>
+            <span className="quantity-label">{t(`quantityDiscount.single`)}</span>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -277,7 +281,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
                 className="form-control"
                 min="0"
               />
-              <span className="input-addon">₪</span>
+              <span className="input-addon">{currencySymbols[currency]}</span>
             </div>
           </div>
           
@@ -293,7 +297,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
                 ))}
               </select>
             </div>
-            <span className="quantity-label">פריטים ב-</span>
+            <span className="quantity-label">{t(`quantityDiscount.multi`)}</span>
             <div className="input-wrapper">
               <input
                 type="number"
@@ -302,7 +306,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
                 className="form-control"
                 min="0"
               />
-              <span className="input-addon">₪</span>
+              <span className="input-addon">{currencySymbols[currency]}</span>
             </div>
           </div>
         </div>
@@ -316,14 +320,14 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
               className={`mode-button ${comparisonMode === 'identical' ? 'mode-button-active' : ''}`}
               onClick={() => onComparisonModeChange('identical')}
             >
-              גדלים זהים
+              {t(`quantityComparison.same`)}
             </button>
             <button
               type="button"
               className={`mode-button ${comparisonMode === 'different' ? 'mode-button-active' : ''}`}
               onClick={() => onComparisonModeChange('different')}
             >
-              גדלים שונים
+              {t(`quantityComparison.diff`)}
             </button>
           </div>
         </div>

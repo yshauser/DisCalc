@@ -3,7 +3,7 @@
   .discount-type-section {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   
   .discount-type-container {
@@ -76,6 +76,7 @@
       align-items: center;
       gap: 8px; /* or 12px depending on spacing you want */
       flex-wrap: wrap; /* optional: wrap on smaller screens */
+      justify-content: center;
     }
     
     .buy-get-text {

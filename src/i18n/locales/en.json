@@ -1,0 +1,87 @@
+{
+    "header": {
+      "title": "What's the Real Cost",
+      "subtitle": "Discount Calculator",
+      "about": "About",
+      "close": "Close"
+    },
+    "about": {
+      "title": "What's the Real Cost - Discount Calculator",
+      "version": "Version",
+      "developer": "Developer: Yossi Hauser",
+      "contact": "Contact"
+    },
+    "labels":{
+      "discountType": "Discount Type",
+      "discount_percentage": "Disocunt",
+      "free":"Free",
+      "tiered":"Tiered",
+      "inText": "in",
+      "product": "product"
+    },
+    "discountTypes": {
+      "FIXED_PERCENTAGE": "Fixed Percentage",
+      "VARIABLE_PERCENTAGE": "Variable Percentage",
+      "PAYMENT_DISCOUNT": "Payment Discount",
+      "FREE_PRODUCT": "Free Product",
+      "QUANTITY_DISCOUNT": "Quantity Discount",
+      "QUANTITY_COMPARISON": "Quantity Comparison",
+      "TIP_CALCULATION": "Tip Calculator"
+    },
+    "variablePercentage":{
+      "first":"First in",
+      "second":"Second in",
+      "third":"Third in",
+      "fourth":"Fourth in",
+      "fifth":"Fifth in"
+    },
+    "paymentDiscount": {
+      "buy": "Buy in",
+      "pay": "Pay only"
+    },
+    "quantityDiscount":{
+      "single":"Single Item in",
+      "multi":"items in"
+    },
+    "quantityComparison":{
+      "same":"Same Size",
+      "diff":"Different Sizes",
+      "measurementUnit": "Units",
+      "productSize": "Product Size",
+      "Weight": "Weight",
+      "Volume": "Volume",
+      "priceFor": "Price For"
+    },
+    "tip":{
+      "tipText": "Enter desired tip percentage, or tip amount or total price you want to pay",
+      "bill": "Bill",
+      "billText": "Enter bill",
+      "tip": "Tip",
+      "tipPercentageText": "Enter tip in percentage",
+      "tipAmountText": "Enter tip size",
+      "payment": "Payment",
+      "paymentText": "Enter total payment"
+    },
+    "productTable": {
+      "price": "Price",
+      "quantity": "Quantity",
+      "pricePerUnit": "Price Per Unit",
+      "discount": "Discount",
+      "finalPrice": "Final Price",
+      "add": "Add Row",
+      "remove": "Remove Row",
+      "total": "Total"
+    },
+    "units": {
+      "currency": "$",
+      "gram": "gram",
+      "kg": "kg",
+      "ml": "ml",
+      "liter": "liter"
+    },
+    "freeProduct": {
+      "buy": "buy",
+      "get": "get",
+      "forFree": "for free"
+    }
+  }

@@ -19,7 +19,7 @@ const FixedPercentageDiscount: React.FC<FixedPercentageDiscountProps> = ({
 }) => {
   // Apply fixed discount to all rows when fixedDiscount changes
   useEffect(() => {
-    console.log ('price2', rows)
+    // console.log ('price2', rows)
 
     if (fixedDiscount) {
       setRows(prevRows => 
