@@ -36,7 +36,10 @@ const Header: React.FC = () => {
   const [isLangOpen, setLangOpen] = useState(false);
   const [isCurrencyOpen, setCurrencyOpen] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
-  const [language, setLanguage] = useState<'HE' | 'EN'>(i18n.language as 'HE'|'EN'||'HE');
+
+  
+  const initialLang = (i18n.language === 'HE' || i18n.language === 'EN') ? i18n.language : 'HE';
+  const [language, setLanguage] = useState<'HE' | 'EN'>(initialLang);
   
   const {currency, setCurrency} = useContext(CurrencyContext);
 
