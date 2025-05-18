@@ -191,7 +191,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
                   type="text"
                   value={totals.finalPrice}
                   readOnly
-                  className="form-control readonly bold"
+                  className="form-control readonly bold better-price"
                 />
                 <span className="input-addon">{currencySymbol}</span>
               </div>
