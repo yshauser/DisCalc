@@ -43,7 +43,7 @@ const App: React.FC = () => {
     const [buyAmount, setBuyAmount] = useState<string>('2');
     const [getAmount, setGetAmount] = useState<string>('1');
   // For variable percentage discount
-    const [variableMode, setVariableMode] = useState<'free' | 'tiered'>('free');
+    const [variableMode, setVariableMode] = useState<'free' | 'tiered'>('tiered');
     const [tierDiscounts, setTierDiscounts] = useState<string[]>(['']);
   // For Reduced Payment discount
     const [buyPrice, setBuyPrice] = useState<string>('');

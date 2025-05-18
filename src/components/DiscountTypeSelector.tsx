@@ -34,8 +34,6 @@ interface DiscountTypeSelectorProps {
   onRefresh: () => void;
 }
 
-// type VariableDiscountMode = 'free' | 'tiered';
-
 const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
   selectedType,
   fixedDiscount,
@@ -67,6 +65,13 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
   const { t } = useTranslation();
   const { currency } = useContext(CurrencyContext);
 
+  // Ensure we have at least two tier discounts when in tiered mode
+  React.useEffect(() => {
+    if (variableMode === 'tiered' && tierDiscounts.length < 2) {
+      // Initialize with two empty tier discounts if we have less than two
+      onTierDiscountsChange(tierDiscounts.length === 0 ? ['', ''] : [...tierDiscounts, '']);
+    }
+  }, [variableMode, tierDiscounts, onTierDiscountsChange]);
 
   const handleTierDiscountChange = (index: number, value: string) => {
     const newTierDiscounts = [...tierDiscounts];
@@ -81,6 +86,9 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
   };
 
   const removeTierDiscount = (index: number) => {
+    if (tierDiscounts.length<=2){
+      return;
+    }
     const newTierDiscounts = [...tierDiscounts];
     newTierDiscounts.splice(index, 1);
     onTierDiscountsChange(newTierDiscounts);
@@ -146,19 +154,19 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
        {selectedType === DiscountType.VARIABLE_PERCENTAGE && (
         <div className="variable-discount-container">
            <div className="variable-mode-buttons">
+           <button
+              type="button"
+              className={`mode-button ${variableMode === 'tiered' ? 'mode-button-active' : ''}`}
+              onClick={() => onVariableModeChange('tiered')}
+            >
+              {t(`labels.tiered`)}
+            </button>
             <button
               type="button"
               className={`mode-button ${variableMode === 'free' ? 'mode-button-active' : ''}`}
               onClick={() => onVariableModeChange('free')}
             >
               {t(`labels.free`)}
-            </button>
-            <button
-              type="button"
-              className={`mode-button ${variableMode === 'tiered' ? 'mode-button-active' : ''}`}
-              onClick={() => onVariableModeChange('tiered')}
-            >
-              {t(`labels.tiered`)}
             </button>
           </div>
 
@@ -193,7 +201,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
                       </button>
                     )}
                     
-                    {index > 0 && (
+                    {index > 0 && tierDiscounts.length >2 && (
                       <button
                         type="button"
                         onClick={() => removeTierDiscount(index)}
