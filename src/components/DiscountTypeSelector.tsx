@@ -16,6 +16,7 @@ interface DiscountTypeSelectorProps {
   priceForSingle: string;
   priceForMultiple: string;
   quantityInGroup: string;
+  fixedMode: 'discount' | 'percentage';
   variableMode: 'free' | 'tiered';
   tierDiscounts: string[];
   comparisonMode: 'identical' | 'different';
@@ -28,6 +29,7 @@ interface DiscountTypeSelectorProps {
   onPriceForSingleChange: (value: string) => void;
   onPriceForMultipleChange: (value: string) => void;
   onQuantityInGroupChange: (value: string) => void;
+  onFixedModeChange: (mode: 'discount' | 'percentage') => void;
   onVariableModeChange: (mode: 'free' | 'tiered') => void;
   onTierDiscountsChange: (discounts: string[]) => void;
   onComparisonModeChange: (mode: 'identical' | 'different') => void;
@@ -41,6 +43,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
   getAmount,
   buyPrice,
   payPrice,
+  fixedMode,
   variableMode,
   tierDiscounts,
   priceForSingle,
@@ -56,6 +59,7 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
   onPriceForSingleChange,
   onPriceForMultipleChange,
   onQuantityInGroupChange,
+  onFixedModeChange,
   onVariableModeChange,
   onTierDiscountsChange,
   onComparisonModeChange,
@@ -132,43 +136,69 @@ const DiscountTypeSelector: React.FC<DiscountTypeSelectorProps> = ({
 
       {selectedType === DiscountType.FIXED_PERCENTAGE && (
         <div className="fixed-discount-container">
-          <label htmlFor="fixedDiscount" className="fixed-discount-label">
-          {t('discountTypes.FIXED_PERCENTAGE')} %:
-          </label>
-          <div className="input-wrapper fixed-discount-input">
-            <input
-              id="fixedDiscount"
-              type="number"
-              value={fixedDiscount}
-              onChange={(e) => onFixedDiscountChange(e.target.value)}
-              className="form-control"
-              placeholder={t(`labels.discount_percentage`)}
-              min="0"
-              max="100"
-            />
-            <span className="input-addon">%</span>
-          </div>
+          <div className="fixed-mode-buttons">
+            <button
+                type="button"
+                className={`mode-button ${fixedMode === 'discount' ? 'mode-button-active' : ''}`}
+                onClick={() => onFixedModeChange('discount')}
+              >
+                {t(`labels.discount`)}
+            </button>
+            <button
+              type="button"
+              className={`mode-button ${fixedMode === 'percentage' ? 'mode-button-active' : ''}`}
+              onClick={() => onFixedModeChange('percentage')}
+              >
+              {t(`labels.percentage`)}
+            </button>
+          </div> 
+
+          {fixedMode === 'discount' && (
+          <>
+            <label htmlFor="fixedDiscount" className="fixed-discount-label">
+            {t('discountTypes.FIXED_PERCENTAGE')} %:
+            </label>
+            <div className="input-wrapper fixed-discount-input">
+              <input
+                id="fixedDiscount"
+                type="number"
+                value={fixedDiscount}
+                onChange={(e) => onFixedDiscountChange(e.target.value)}
+                className="form-control"
+                placeholder={t(`labels.discount_percentage`)}
+                min="0"
+                max="100"
+              />
+              <span className="input-addon">%</span>
+            </div>
+          </>
+           )}
+          {fixedMode === 'percentage' && ( 
+             <label htmlFor="fixedDiscount" className="fixed-discount-label">
+            {t('labels.percentage')} %:
+            </label>
+           )}
         </div>
       )}
 
        {selectedType === DiscountType.VARIABLE_PERCENTAGE && (
         <div className="variable-discount-container">
            <div className="variable-mode-buttons">
-           <button
-              type="button"
-              className={`mode-button ${variableMode === 'tiered' ? 'mode-button-active' : ''}`}
-              onClick={() => onVariableModeChange('tiered')}
-            >
-              {t(`labels.tiered`)}
-            </button>
             <button
-              type="button"
-              className={`mode-button ${variableMode === 'free' ? 'mode-button-active' : ''}`}
-              onClick={() => onVariableModeChange('free')}
-            >
-              {t(`labels.free`)}
-            </button>
-          </div>
+                type="button"
+                className={`mode-button ${variableMode === 'tiered' ? 'mode-button-active' : ''}`}
+                onClick={() => onVariableModeChange('tiered')}
+              >
+                {t(`labels.tiered`)}
+              </button>
+              <button
+                type="button"
+                className={`mode-button ${variableMode === 'free' ? 'mode-button-active' : ''}`}
+                onClick={() => onVariableModeChange('free')}
+              >
+                {t(`labels.free`)}
+              </button>
+            </div>
 
           {variableMode === 'tiered' && (
             <div className="tiered-discounts-container">

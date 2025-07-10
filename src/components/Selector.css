@@ -99,6 +99,7 @@
         justify-content: center;
       }
       
+      .fixed-mode-buttons,
       .variable-mode-buttons,
       .comparison-mode-buttons {
         display: flex;

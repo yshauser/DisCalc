@@ -7,6 +7,7 @@ import { calculateFinalPrice, calculateTotals } from '../utils/calculations';
 interface FixedPercentageDiscountProps {
   rows: ProductRow[];
   fixedDiscount: string;
+  fixedMode: string;
   setRows: React.Dispatch<React.SetStateAction<ProductRow[]>>;
   setTotals: React.Dispatch<React.SetStateAction<Totals>>;
 }
@@ -14,6 +15,7 @@ interface FixedPercentageDiscountProps {
 const FixedPercentageDiscount: React.FC<FixedPercentageDiscountProps> = ({
   rows,
   fixedDiscount,
+  fixedMode,
   setRows,
   setTotals
 }) => {
@@ -21,7 +23,7 @@ const FixedPercentageDiscount: React.FC<FixedPercentageDiscountProps> = ({
   useEffect(() => {
     // console.log ('price2', rows)
 
-    if (fixedDiscount) {
+    if (fixedDiscount && fixedMode==='discount') {
       setRows(prevRows => 
         prevRows.map(row => {
           const updatedRow = { ...row, discount: fixedDiscount };
@@ -32,12 +34,12 @@ const FixedPercentageDiscount: React.FC<FixedPercentageDiscountProps> = ({
         })
       );
     }
-  }, [fixedDiscount, setRows]);
+  }, [fixedMode,fixedDiscount, setRows]);
 
 
     // Separate effect to handle price changes in rows
     useEffect(() => {
-      if (fixedDiscount) {
+      if (fixedDiscount && fixedMode==='discount') {
         // Only update specific rows where price exists but finalPrice doesn't match what it should be
         const needsUpdate = rows.some(row => {
           const priceValue = row.price === '' ? '0' : row.price;
@@ -59,6 +61,27 @@ const FixedPercentageDiscount: React.FC<FixedPercentageDiscountProps> = ({
         }
       }
     }, [rows, fixedDiscount, setRows]);
+
+useEffect(() => {
+  if (fixedDiscount && fixedMode === 'percentage') {
+    setRows(prevRows =>
+      prevRows.map(row => {
+        const priceValue = row.price === '' ? '0' : row.price;
+        const expectedFinalPrice = calculateFinalPrice(priceValue, fixedDiscount);
+
+        // Only update if finalPrice or price has changed
+        if (row.finalPrice !== expectedFinalPrice) {
+          return {
+            ...row,
+            discount: fixedDiscount,
+            finalPrice: expectedFinalPrice
+          };
+        }
+        return row;
+      })
+    );
+  }
+}, [fixedDiscount, fixedMode, setRows]);
 
 
   // Calculate totals when rows change

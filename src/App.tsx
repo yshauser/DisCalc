@@ -39,6 +39,7 @@ const App: React.FC = () => {
   // State for discount type
   const [discountType, setDiscountType] = useState<DiscountType>(DiscountType.FIXED_PERCENTAGE);
   const [fixedDiscount, setFixedDiscount] = useState<string>('');
+    const [fixedMode,setFixedMode] = useState<'discount' | 'percentage'>('discount');
   // For Free product discount
     const [buyAmount, setBuyAmount] = useState<string>('2');
     const [getAmount, setGetAmount] = useState<string>('1');
@@ -196,7 +197,7 @@ const App: React.FC = () => {
       }
     }, [i18n.language]);
 
-  return (
+    return (
     <div className="app">
       <CurrencyContext.Provider value={{ currency, setCurrency }}>
       <Header />
@@ -206,6 +207,8 @@ const App: React.FC = () => {
             <DiscountTypeSelector
               selectedType={discountType}
               fixedDiscount={fixedDiscount}
+              fixedMode={fixedMode}
+              onFixedModeChange={setFixedMode}
               onTypeChange={handleDiscountTypeChange}
               onFixedDiscountChange={handleFixedDiscountChange}
 
@@ -242,6 +245,7 @@ const App: React.FC = () => {
             <FixedPercentageDiscount 
               rows={rows}
               fixedDiscount={fixedDiscount}
+              fixedMode={fixedMode}
               setRows={setRows}
               setTotals={setTotals}
             />
@@ -303,6 +307,7 @@ const App: React.FC = () => {
                 rows={rows}
                 totals={totals}
                 discountType={discountType}
+                mode={fixedMode}
                 priceForSingle={priceForSingle}
                 setRows={setRows}
               />

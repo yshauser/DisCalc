@@ -17,7 +17,9 @@
       "free":"חופשי",
       "tiered":"מדורג",
       "inText": "ב-",
-      "product": "מוצר"
+      "product": "מוצר",
+      "discount": "חישוב מחיר",
+      "percentage": "חישוב אחוזי הנחה"
     },
     "discountTypes": {
       "FIXED_PERCENTAGE": "אחוזים קבועים",

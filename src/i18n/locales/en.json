@@ -17,7 +17,9 @@
       "free":"Free",
       "tiered":"Tiered",
       "inText": "in",
-      "product": "product"
+      "product": "product",
+      "discount": "Price calculation",
+      "percentage": "Discount percentage calculation"
     },
     "discountTypes": {
       "FIXED_PERCENTAGE": "Fixed Percentage",

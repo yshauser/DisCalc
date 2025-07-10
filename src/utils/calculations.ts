@@ -14,6 +14,17 @@ export const calculateFinalPrice = (price: string, discount: string): string => 
   return '';
 };
 
+export const calculatePercentage = (price: string, finalPrice: string): string => {
+  const priceNum = parseFloat(price);
+  const discountNum = parseFloat(finalPrice);
+  // console.log ('calculations', {priceNum, discountNum, discount, price});
+  
+  if (!isNaN(priceNum) && !isNaN(discountNum)) {
+    return ((priceNum - discountNum)*100/priceNum).toFixed(2);
+  }
+  return '';
+};
+
 // Calculate totals from all rows
 export const calculateTotals = (rows: ProductRow[]): Totals => {
   let totalPrice = 0;

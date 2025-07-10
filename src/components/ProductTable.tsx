@@ -2,7 +2,8 @@
 
 import React, {useContext} from 'react';
 import { ProductRow, Totals, DiscountType } from '../models/types';
-import { calculateFinalPrice } from '../utils/calculations';
+import { calculateFinalPrice, calculatePercentage} from '../utils/calculations';
+import { Coins } from 'lucide-react';
 import './Table.css';
 import { useTranslation } from 'react-i18next';
 import { CurrencyContext, currencySymbols } from './Header';
@@ -12,6 +13,7 @@ interface ProductTableProps {
   totals: Totals;
   discountType: DiscountType;
   priceForSingle: string;
+  mode: string;
   setRows: React.Dispatch<React.SetStateAction<ProductRow[]>>;
   setTotals?: React.Dispatch<React.SetStateAction<Totals>>;
   comparisonMode?: 'identical' | 'different';
@@ -22,6 +24,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
   totals,
   discountType,
   priceForSingle,
+  mode,
   setRows,
   setTotals,
   comparisonMode
@@ -34,7 +37,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
   // the code that replaces the regular product table for tips and for quantityComparison-different is in App.tsx
   
   // Handle price or discount change
-  const handleInputChange = (id: number, field: 'price' | 'discount', value: string) => {
+  const handleInputChange = (id: number, field: 'price' | 'discount' | 'finalPrice', value: string) => {
     console.log ('handle input', {id, field, value });
     setRows(prevRows => {
       return prevRows.map(row => {
@@ -44,7 +47,14 @@ const ProductTable: React.FC<ProductTableProps> = ({
           // Only calculate final price for variable discount type or when changing price
           if (discountType !== DiscountType.FIXED_PERCENTAGE || field === 'price') {
             if (updatedRow.price && updatedRow.discount) {
+              console.log ('update final price')
               updatedRow.finalPrice = calculateFinalPrice(updatedRow.price, updatedRow.discount);
+            }
+          }
+          if (discountType === DiscountType.FIXED_PERCENTAGE && field === 'finalPrice') {
+            if (updatedRow.price && updatedRow.finalPrice) {
+                            console.log ('update discount')
+              updatedRow.discount = calculatePercentage(updatedRow.price, updatedRow.finalPrice);
             }
           }
           console.log ('updated', {updatedRow})
@@ -55,6 +65,9 @@ const ProductTable: React.FC<ProductTableProps> = ({
     });
   };
 
+  // const handleDoubleDiscount = (price: string, discount: string) => {
+  //   console.log ('double', {price, discount})
+  // }
   // Add a new row
   const addRow = () => {
     const newId = rows.length > 0 ? Math.max(...rows.map(row => row.id)) + 1 : 1;
@@ -81,7 +94,6 @@ const ProductTable: React.FC<ProductTableProps> = ({
 
   // Determine if discount input should be disabled (for fixed percentage mode)
   const isDiscountDisabled = discountType === DiscountType.FIXED_PERCENTAGE || discountType === DiscountType.FREE_PRODUCT || discountType === DiscountType.PAYMENT_DISCOUNT;
-
   // Get the current currency symbol
   const currencySymbol = currencySymbols[currency];
 
@@ -131,10 +143,11 @@ const ProductTable: React.FC<ProductTableProps> = ({
           <td className="col-final">
             <div className="input-wrapper">
               <input
-                type="text"
+                type="number"
                 value={row.finalPrice}
-                readOnly
-                className="form-control readonly"
+                onChange={(e) => handleInputChange(row.id, 'finalPrice', e.target.value)}
+                readOnly={!(discountType === DiscountType.FIXED_PERCENTAGE && mode === 'percentage')}
+                className={`form-control ${!(discountType === DiscountType.FIXED_PERCENTAGE && mode === 'percentage') ? 'readonly' : ''}`}
               />
               <span className="input-addon">{currencySymbol}</span>
             </div>
@@ -196,8 +209,14 @@ const ProductTable: React.FC<ProductTableProps> = ({
                 <span className="input-addon">{currencySymbol}</span>
               </div>
             </td>
-            <td className="action-cell"></td>
-          </tr>
+            <td className="action-cell">
+          <div >
+            <button>
+              <Coins/>
+            </button>
+          </div>
+        </td>
+        </tr>
         </tfoot>
       )}
     </table>

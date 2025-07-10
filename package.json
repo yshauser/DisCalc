@@ -1,6 +1,6 @@
 {
   "name": "discalc",
-  "version": "0.7.5",
+  "version": "0.7.6",
   "private": true,
   "homepage": "https://yshauser.github.io/DisCalc",
   "dependencies": {
